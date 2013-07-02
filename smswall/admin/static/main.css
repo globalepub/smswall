@@ -1,0 +1,413 @@
+body{
+	margin: 0;
+	color: #3F3F3F;
+	font-size: 11pt;
+	font-family: Arial,Helvetica,sans-serif;
+	background: #727B85 url(../../media/bg_gradient.png) repeat-x top left;
+}
+
+a {	color: #307CBA; text-decoration: none; }
+a:hover { color: #222222; }
+.left {	float: left; }
+.right { float: right; }
+
+#overlay{
+	position: absolute;
+	top: 0;
+	background: transparent url(../../media/pix_fonce.png) repeat fixed top left;
+	z-index: 2;
+	width: 100%;
+	min-height: 100%;
+}
+
+
+.bulle{
+	background-color: #2a2a2a;
+	margin: 64px auto 0;
+	padding: 16px;
+	font-size: 12px;
+	color: #DDD;
+	width: 80%;
+	border-radius: 16px;
+	-moz-border-radius: 16px;
+	-webkit-border-radius: 16px;
+	box-shadow:0 0 5px rgba(0, 0, 0, 1);
+	-moz-box-shadow:0 0 5px rgba(0, 0, 0, 1);
+	-webkit-box-shadow:0 0 5px rgba(0, 0, 0, 1);
+}
+	.bulle #closerOptions, .bulle #closerViewer{
+		cursor:pointer;
+		float:right;
+		margin:-32px;
+	}
+	.bulle form {
+		margin-bottom: 16px;
+	}
+	.bulle .title {
+		font-size: 16px;
+		color: #CCCCCC;
+		font-weight: bold;
+		margin-bottom: 8px;
+		border-bottom: 2px solid #CCCCCC;
+	}
+	.bulle .title small {
+		color: #888888;
+		font-size: 10px;
+		font-weight: normal;
+	}
+	.bulle .subTitle{
+		color: #888888;
+		margin-bottom: 8px;
+	}
+
+	.bulle a {
+		font-weight: bold;
+		color: #ffffff;
+	}
+
+
+	#spinnerSplash {
+		background: transparent url(../../media/preloader.gif) no-repeat;
+		padding-left: 25px;
+		height: 25px;
+		line-height: 25px;
+		font-size: 16px;
+		font-weight: bold;
+		color: #cccccc;
+	}
+	#detailSplash {
+		margin-top: 10px;
+		color: #888888;
+	}
+
+	.bulle #qrcode {
+		padding: 10px;
+	}
+
+#bulleViewer {
+	/*position: fixed;
+	margin: 64px 10% 0;*/
+	margin: 64px 25% 0;
+    max-width: 50%;
+    position: fixed;
+}
+
+.well-small-viewer {
+    background-color: #585858;
+    border-radius: 3px 3px 3px 3px;
+    line-height: 14px;
+    margin: 5px 0;
+    padding: 4px;
+}
+.btn-bar {
+	margin-bottom: 5px;
+}
+
+#bulleOptions .label-success {
+	padding-bottom: 5px;
+}
+
+
+
+/*
+Menu - header
+*/
+
+#menu {
+	position: fixed;
+	padding: 10px;
+	height: 28px;
+	z-index: 3;
+	width: 100%;
+	background-color: #5F5F5F;
+	color: #DDD;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 1);
+	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, 1);
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, 1);
+	background: -moz-linear-gradient(center top , #333333, #111111) repeat scroll 0 0 transparent;
+	background: -webkit-gradient(linear, left top, left bottom, from(#333333), to(#111111));
+	left:0;
+	top:0;
+}
+
+/* Menu header group left */
+
+#menu .btn-inverse, #fresher {
+	float: left;
+	margin-right: 12px;
+	border: 1px solid #000000;
+    border-radius: 4px 4px 4px 4px;
+    display: inline;
+    padding: 3px 6px;
+}
+
+#closerSplash {
+	border: 1px solid #000000;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px 6px;
+	display: inline;
+}
+#closerSplash:hover {
+	border: 1px solid #AAAAAA;
+	cursor: pointer;
+}
+
+
+/* Menu header group center */
+
+#stacker {
+	background: -moz-linear-gradient(center top, #F55353, #6D2323) repeat scroll 0 0 transparent;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px 6px;
+	color: #FFFFFF;
+	display: block;
+	margin: auto;
+	width: 150px;
+	text-shadow: 0 -1px 1px #333333;
+	text-align: center;
+	display: none;
+}
+
+
+
+/* Menu header group right */
+
+#options, #btnmsgmodo {
+	float: right;
+	margin-right: 15px;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	padding: 3px 6px;
+}
+#options:hover, #btnmsgmodo:hover, #stacker:hover {
+	border: 1px solid #AAAAAA;
+	cursor: pointer;
+}
+
+#countscr {
+	float: left;
+	padding: 4px 10px;
+	margin-right: 12px;
+	color: #555;
+	text-shadow: 0 -1px 1px #000, 1px 0 1px #555;
+	/*display: none;*/
+}
+#countscr #countmbr {
+	font-size: 24px;
+	font-weight: bold;
+	color: #307CBA;
+	text-shadow: none;
+}
+
+
+
+
+
+#subMenu{
+	/* Hauteur du menu qui est en fixed */
+	margin-top: 44px;
+	padding: 10px;
+	background-color: #555555;
+	color: #000000;
+}
+
+#messageModo{
+	position: relative;
+	top: 44px;
+	padding: 10px;
+}
+	#messageModo form label {
+		display: block;
+		color: #C9C9C9;
+		font-weight: bold;
+	}
+	#messageModo form input, #messageModo form textarea {
+		/*width: 100%;*/
+	}
+
+#containerMsg{
+	position: relative;
+	width: 100%;
+	/*left: -40px;*/
+	list-style-type: none;
+	margin: 0;
+	top: 48px;
+}
+
+
+.msg, .msgNew, .msgOK, .msgNO{
+	margin-bottom: 0;
+	padding: 5px;
+	background-color: #eee;
+}
+
+.msgOK:hover, .msgNO:hover {
+	border-top: 1px solid #828282;
+	border-bottom: 1px solid #565656;
+}
+
+.msgOK, .msgNew {
+	/*background: #f0eac8 url(../media/bg_msg_grad_ok.png) repeat-x top left;*/
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #BBBBBB;
+}
+.msgNew {
+	border: 1px solid #FFFFFF;
+}
+.msgNO {
+	background: #848170 url(../../media/bg_msg_grad_no.png) repeat-x top left;
+	border-top: 1px solid #878787;
+	border-bottom: 1px solid #666666;
+}
+
+#containerMsg li .twut-text{
+	float:left;
+	min-width: 300px;
+	max-width: 70%;
+}
+
+.author{
+	color: #2B2B2B;
+	font-weight: bold;
+}
+.textMsg{
+	/*font-weight: bold;*/
+}
+.time, .debug {
+	color: #A6A6A6;
+}
+
+.msgNO .time {
+	color: #7A7A7A;
+}
+
+.avatar {
+	width: 48px;
+	height: 48px;
+	float: left;
+	margin-right: 5px;
+}
+
+/* Moderation */
+
+.modo_menu {
+	float: right;
+}
+.modo_menu > .thumbnails {
+	float: left;
+	margin-left: 0;
+}
+.modo_menu > a {
+	float: left;
+	margin: 11px;
+}
+
+.async_mediaicon{
+	/*background-color: rgb(0, 0, 0);*/
+	background-size: cover;
+	background-position: 0% 0%;
+	background-repeat: no-repeat no-repeat;
+	margin: 0;
+	width: 40px;
+	height: 40px;
+}
+
+
+.togoff, .togon {
+	width: 52px;
+	height: 20px;
+	margin-top: -1px;
+}
+
+.togoff{
+	background: transparent url(../../media/button-modo.png) no-repeat 0 0;
+}
+.togon{
+	background: transparent url(../../media/button-modo.png) no-repeat 0 -20px;
+}
+
+.togoff:hover, .togon:hover {
+	text-decoration: none;
+}
+
+.msgOK .togoff, .msgNO .togon {
+	display: block;
+}
+.msgOK .togon, .msgNO .togoff {
+	display: none;
+}
+
+
+
+
+.bulOff{
+	background: transparent url(../../media/bulle_toggle.png) no-repeat 0 0;
+	width: 24px;
+	height: 20px;
+	margin-top: -1px;
+	margin-right: 10px;
+}
+
+.bulOff:hover {
+	background: transparent url(../../media/bulle_toggle.png) no-repeat 0 -20px;
+	text-decoration: none;
+}
+
+.mediaicon{
+	background: transparent url(../../media/media_toggle.png) no-repeat 0 0;
+	width: 26px;
+	height: 21px;
+	margin-top: -1px;
+	margin-right: 10px;
+	display: block;
+}
+.mediaicon:hover{
+	background: transparent url(../../media/media_toggle.png) no-repeat 0 -21px;
+	text-decoration: none;
+}
+
+.tooltip {
+	font-size: 13px;
+}
+
+.tooltip .tooltip-inner {
+	font-size: 13px;
+	max-width: 400px;
+}
+
+#menu .tooltip {
+	margin-top: 14px;
+}
+
+.internallink {
+	float: right;
+	font-weight: bold;
+	margin-right: 10px;
+}
+.internallink:hover {
+	cursor: pointer;
+	text-decoration: none;
+}
+
+
+#morer {
+	font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    position: relative;
+    text-align: center;
+    top: 44px;
+
+}
+
+#morer:hover{
+	cursor: pointer;
+}
+

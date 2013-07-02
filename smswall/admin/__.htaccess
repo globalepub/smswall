@@ -1,0 +1,4 @@
+AuthUserFile .htpasswd
+AuthType Basic
+AuthName "SmsWall Admin"
+Require valid-user
