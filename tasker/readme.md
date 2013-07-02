@@ -23,17 +23,17 @@ Création du profil :
 
 Commencez par créer un nouveau profil en cliquant sur le gros bouton + en bas de l'écran d'accueil de Tasker. Donnez lui un nom, par exemple: "Réception de SMS"
 
-Ensuite il faut spécifier le contexte principal. Nous voulons que le téléphone réagisse à l'arrivée de chaque SMS. Nous allons donc choisir 'Evénement' comme premier contexte puis dans la catégorie 'Téléphone' nous sélectionnons le type d'évènement : 'SMS reçu'
+Ensuite il faut spécifier le contexte principal. Nous voulons que le téléphone réagisse à l'arrivée de chaque SMS. Nous allons donc choisir __Evénement__ comme premier contexte puis dans la catégorie __Téléphone__ nous sélectionnons le type d'évènement : __SMS reçu__
 
-Dans la page d'édition de l'évènement, vérifiez bien que le champ Type est configuré sur 'Tous' ou éventuellement 'SMS' puisque le MMS ne sont actuellement pas traités.
+Dans la page d'édition de l'évènement, vérifiez bien que le champ Type est configuré sur __Tous__ ou éventuellement __SMS__ puisque les MMS ne sont actuellement pas traités.
 
-__Pour revenir à l'écran principal il faut cliquer ensuite sur le logo Tasker en haut à gauche.__
+__Enfin, pour valider puis revenir à l'écran principal, cliquez sur le logo Tasker en haut à gauche.__
 
 
 Création de la tâche :
 ----------------------
 
-Tasker vous invitera ensuite à choisir ou à créer une nouvelle Tâche. Nous allons donc choisir 'Nouvelle tâche', lui choisir un nom ( 'Grabber' par exemple ) puis valider.
+Tasker vous invitera ensuite à choisir ou à créer une nouvelle Tâche. Nous allons donc choisir __Nouvelle tâche__, lui choisir un nom ( "Grabber" par exemple ) puis valider.
 
 Nous nous retrouvons sur un écran vierge où nous allons créer plusieurs actions qui seront exécutées à chaque réception de SMS.
 
@@ -89,7 +89,7 @@ Ces informations sont spécifiques au SmsWall et ne sont données qu'à titre in
 Activation de la tâche :
 ------------------------
 
-Une fois le profil et la tâche associées créés, révenez à l'onglet principal 'Profils' et vérifiez que votre profil est activé.
+Une fois le profil et la tâche associée créés, révenez à l'onglet principal 'Profils' et vérifiez que votre profil est activé.
 
 __Activation de Tasker__
 

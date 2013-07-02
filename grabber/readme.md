@@ -11,46 +11,47 @@ Il est préférable de lancer un script en ligne de commande qui tournera en per
 
 __Pré-requis__
 
-- Ouvrir un compte Twitter qui sera utilisé pour l'authentification
+- Ouvrir un compte Twitter qui sera utilisé pour l'authentification.
 
-Rendez vous sur https://dev.twitter.com/apps, authentifiez-vous puis créez une nouvelle application
+- Créer une application Twitter rattachée à ce compte: Rendez vous sur https://dev.twitter.com/apps, authentifiez-vous puis créez une nouvelle application
 
-- Un compte pusher.com (il s'agit du même compte que pour le smswall)
+- Ouvrir un compte pusher.com (il s'agit du même compte que pour le smswall)
 
 - Python 2.7 avec Virtualenv et PIP installés et fonctionnels
 
-Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des packets utilisés par ce script)
+Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des paquets utilisés par le grabber) : http://flask.pocoo.org/docs/installation
+
 
 Installation :
 --------------
 
 __Création de l'environnement__
 
-'''
-~/ cd smswall
-~/smswall $ virtualenv env
-'''
+
+    ~/ cd smswall
+    ~/smswall $ virtualenv env
+
 
 __Activation__
 
-'''
-~/smswall $ env/bin/activate
-'''
+
+    ~/smswall $ env/bin/activate
+
 
 __Installation des paquets__
 
-'''
-(env) ~/smswall $ pip install -r requirements.txt
-'''
+
+    (env) ~/smswall $ pip install -r requirements.txt
+
 
 __Lancement de l'application__
 
 - Copiez le fichier de configuration d'exemple config.sample.py et renommez le en config.py.
 - Puis modifiez config.py en ajoutant vos paramètres de connexion à votre base de donnée ainsi que vos paramètres de connexion à Pusher.
+- démarrez le grabber en lancant cette commande :
 
-'''
-(env) dweez@dizou: ~/smswall/grabber $ python grabber.py start -uuser -ppassword -s 245.245.22.22 -b smswall
-'''
+    (env) dweez@dizou: ~/smswall/grabber $ python grabber.py start
+
 
 __Problèmes courant__
 
@@ -58,6 +59,5 @@ ImportError: No module named MySQLdb
 
 Si vous rencontrez cette erreur c'est que MySQL n'est pas correctement installé pour Python sur votre machine.
 
-'''
-$ sudo apt-get install mysql-server mysql-client python-mysqldb
-'''
+
+    $ sudo apt-get install mysql-server mysql-client python-mysqldb
