@@ -12,7 +12,7 @@ Ce dépôt contient 3 applications différentes conçues pour fonctionner ensemb
 ###Le SmsWall
 __/smswall__
 
-C'est la partie WEB du projet. Le SmsWall vous permet d'une part d'afficher un mur contributif qui agrège les tweets et les SMS envoyés par les utilisateurs en temps réel. D'autre part, il permet à l'animateur de "piloter" le wall: mettre en valeur certains tweets ou leur contenu (photo, vidéo, ...) en les affichant dans une bulle; afficher ou masquer certains tweets; envoyer des messages; ...
+C'est la partie WEB du projet. Le SmsWall vous permet d'une part d'afficher un mur contributif qui agrège les tweets et les SMS envoyés par les utilisateurs en temps réel. D'autre part, il permet à l'animateur de "piloter" le wall: mettre en valeur certains tweets ou leur contenu (photo, vidéo, ...) en les affichant dans une bulle, d'afficher ou masquer certains tweets, d'envoyer des messages "de services", ...
 
 ###Le Grabber
 __/grabber__
@@ -31,6 +31,7 @@ Cette solution est plus simple à mettre en place que la solution clé 3G + SmsE
 
 ---
 
+###Spécifs
 
 
 __SMS :__
@@ -45,18 +46,19 @@ Materiel, 2 solutions proposées :
 __Twitter :__
 
 -   Filtrage des tweets sur un ou plusieurs #hashtag
--   ou affichage affichage de la timeline du compte Twitter utilisé pour l'authentification (https://dev.twitter.com/docs/streaming-apis/streams/user)
+-   OU
+-	Affichage de la timeline du compte Twitter utilisé pour l'authentification (https://dev.twitter.com/docs/streaming-apis/streams/user)
 -   Pilotage et animation du wall depuis l'admin
 -   Modération des tweets et SMS à priori ou à posteriori.
 -   Masquage des RT
 -   Possibilité de créer ses propres thèmes
 
 
-__Medias intégrés :__
+__Links et Medias :__
 
 Embedly - http://embed.ly
 
-Les liens intégrés dans les tweets peuvent être décompressés et analysé. Dans le cas de photos, vidéos, pdf le média peut être affiché dans une bulle à la demande. Le modérateur "pilote" l'affichage depuis la console d'administration du wall
+Les liens intégrés dans les tweets par les utilisateurs peuvent être décompressés et analysés. Dans le cas de photos, vidéos, pdf le média peut être affiché dans une bulle sur tous les walls connectés par l'animateur.
 
 Les liens externes, non interpretés par l'API Twitter sont envoyés à http://embed.ly/ qui les analyses et retourne un 'embed' en fonction du type de ressources. La création d'un compte embedly est donc requise (l'inscription est gratuite et vous pourrez afficher jusqu'à 5000 embeds / mois)
 

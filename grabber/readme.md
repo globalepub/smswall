@@ -19,7 +19,9 @@ __Pré-requis__
 
 - Python 2.7 avec Virtualenv et PIP installés et fonctionnels
 
-Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des paquets utilisés par le grabber) : http://flask.pocoo.org/docs/installation
+_Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des paquets utilisés par le grabber) : http://flask.pocoo.org/docs/installation_
+
+- Pas de script de création de la base de donnée côté Python pour l'instant. Se référer au script d'install de la partie PHP (@todo: lien direct)
 
 
 Installation :
@@ -44,13 +46,38 @@ __Installation des paquets__
     (env) ~/smswall $ pip install -r requirements.txt
 
 
-__Lancement de l'application__
+__Configuration__
 
 - Copiez le fichier de configuration d'exemple config.sample.py et renommez le en config.py.
-- Puis modifiez config.py en ajoutant vos paramètres de connexion à votre base de donnée ainsi que vos paramètres de connexion à Pusher.
+- Modifiez config.py en ajoutant vos paramètres de connexion à votre base de donnée, ainsi que vos paramètres de connexion à l'application Twitter et à votre compte Pusher.
+
+__Création de la base de donnée__
+
+Cette opération n'est à effectuer qu'une seule fois. Soit avec le script smswall/init_db.php dans un navigateur soit avec les commandes ci-dessous :
+
+Dans un terminal, lancez un shell mysql :
+
+	root@localhost:~# mysql -u root -ppassword
+
+	mysql> CREATE DATABASE smswall;
+
+Création du user wally :
+
+	mysql> GRANT ALL PRIVILEGES ON smswall.* TO wally@localhost IDENTIFIED BY 'k4m0ul0x';
+	mysql> exit
+	bye
+
+Création des tables et init de la configuration du wall :
+
+	(env) ~/smswall $ cd grabber
+	(env) ~/smswall/grabber $ python init_db.py
+
+
+__Lancement de l'application__
+
 - démarrez le grabber en lancant cette commande :
 
-    (env) dweez@dizou: ~/smswall/grabber $ python grabber.py start
+    (env) dweez@dizou: ~/smswall/grabber $ python grabber.py 
 
 
 __Problèmes courant__
