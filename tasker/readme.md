@@ -1,5 +1,5 @@
-Grabber SMS Android - Tasker
-============================
+Tasker
+======
 
 Ce tutorial vous permettra de mettre en place un 'grabber' de SMS à l'aide d'un téléphone sous Android et de l'application Tasker (Version pour Android >= 4.0).
 
@@ -96,3 +96,11 @@ __Activation de Tasker__
 Pour que Tasker soit actif en tâche de fond sur votre mobile il faut l'activer, ce qui n'est pas encore forcément le cas. Vérifiez que l'icône Tasker en haut à gauche de l'écran est en couleur (l'éclair du logo doit être jaune / orange). Si le logo est monochrome, appuyez longuement sur le logo. Un message devrait vous indiquer 'Enabled' et le logo devrait se colorer ...
 
 Il ne vous reste plus qu'à tester le bon fonctionnement de la tâche en vous envoyant à vous même un SMS :)
+
+
+
+SmsEnabler
+==========
+
+Il est aussi possible d'utiliser SmsEnabler sur un PC sous Windows avec une clé 3G pour récupérer les SMS.
+...
