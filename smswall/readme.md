@@ -3,6 +3,18 @@ SmsWall
 
 Affichage temps réel de contributions envoyées par SMS et/ou Twitter sous forme d'un 'wall' personnalisable et modérable
 
+Spécifications :
+----------------
+
+-   Filtrage des tweets sur un ou plusieurs #hashtag
+-   OU
+-	Affichage de la timeline du compte Twitter utilisé pour l'authentification (https://dev.twitter.com/docs/streaming-apis/streams/user)
+-   Pilotage et animation du wall depuis l'admin
+-   Modération des tweets et SMS à priori ou à posteriori.
+-   Masquage des RT
+-   Possibilité de créer ses propres thèmes
+
+
 Installation du SmsWall :
 -------------------------
 

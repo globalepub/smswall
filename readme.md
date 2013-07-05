@@ -37,32 +37,22 @@ Cette solution est plus simple à mettre en place que la solution clé 3G + SmsE
 
 ---
 
-###Spécifications
+Pusher et Embedly
+=================
 
 
-__SMS :__
+###Websocket
 
-Numéro d'envoi non surtaxé pour les participants
+__Pusher :__ <http://pusher.com>
 
-Materiel, 2 solutions proposées :
+La communication entre les divers éléments qui composent le SmsWall se fait en temps réel grace au service en ligne Pusher.com. Pour une utilisation basique un compte gratuit suffit amplement (Vous pourrez publier 100 000 messages par jour...)
 
-+   Clé 3G + n'importe quelle carte SIM capable de recevoir des SMS + SMS Enabler
-+   Téléphone mobile Android + application Tasker
-
-__Twitter :__
-
--   Filtrage des tweets sur un ou plusieurs #hashtag
--   OU
--    Affichage de la timeline du compte Twitter utilisé pour l'authentification (https://dev.twitter.com/docs/streaming-apis/streams/user)
--   Pilotage et animation du wall depuis l'admin
--   Modération des tweets et SMS à priori ou à posteriori.
--   Masquage des RT
--   Possibilité de créer ses propres thèmes
+...
 
 
-__Links et Medias :__
+###Links et Medias
 
-Embedly - http://embed.ly
+__Embedly :__ <http://embed.ly>
 
 Vous pouvez affichez en mode plein écran les photos ou vidéos jointes dans les messages envoyés.
 
@@ -70,17 +60,11 @@ Les liens externes, non interpretés par l'API Twitter sont envoyés à http://e
 
 Lorsqu'un ou plusieurs liens sont présents dans un message, une icone ou une miniature apparait pour chaque lien dans la prévisualisation (admin) du tweet. Si le média correspondant provient directement de Twitter il est affiché instantanément. Par contre une simple icone sera affichée dans un premier temps si il s'agit d'un lien non pris en charge par l'API Twitter. Celui-ci est automatiquement envoyé à Embedly lorsque vous cliquez sur l'icone correspondante et en retour vous visualiserez le contenu du lien en fonction de son type : photo, vidéo, site web. Après la première visualisation du média l'icone est remplacée, pour cette session, par une miniature (l'url finale n'est actuellement pas sauvée en BDD)
 
-> Si le lien trouvé est de type 'site web' et pas un média à proprement parler, la page est explorée et une image est éventuellement retournée par Embedly. Attention, cette image ne'est pas forcément pertinente. Il peut s'agir du logo du site, d'une publicité ou même d'une image correspondant à un autre article.
+Si le lien trouvé est de type 'site web' et pas un média à proprement parler, la page est explorée et une image est éventuellement retournée par Embedly. Attention, cette image ne'est pas forcément pertinente. Il peut s'agir du logo du site, d'une publicité ou même d'une image correspondant à un autre article.
 
-__Websocket :__
 
-Pusher - http://pusher.com
 
-La communication entre les divers éléments qui composent le SmsWall se fait en temps réel grace au service en ligne Pusher.com. Pour une utilisation basique un compte gratuit suffit amplement (Vous pourrez publier 100 000 messages par jour...)
-
-...
-
-Amusez-vous bien :)
+__Amusez-vous bien :)__
 
 
 Licence ???
