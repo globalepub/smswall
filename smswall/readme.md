@@ -36,7 +36,7 @@ __Création de la base de donnée__
 - Créez un base de donnée que vous nommerez 'smswall' (si vous disposez des droits root sur mysql vous pouvez vous rendre sur la page http://www.mondomaine.com/smswall/admin/init_db.php)
 - Pour créer les tables rendez vous sur la page http://www.mondomaine.com/smswall/admin/init_tables.php
 
-Votre SmsWall est opérationnel, si vous utilisez le grabber de tweet vous pouvez le lancer les messages devraient commencer à tomber sur le mur.
+Votre SmsWall est opérationnel, si vous utilisez le grabber de tweet vous pouvez le lancer, les messages devraient commencer à tomber sur le mur.
 
 __Administration__
 
