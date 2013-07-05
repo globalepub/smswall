@@ -3,7 +3,7 @@ Tasker
 
 Ce tutorial vous permettra de mettre en place un 'grabber' de SMS à l'aide d'un téléphone sous Android et de l'application Tasker (Version pour Android >= 4.0).
 
-Vous pouvez aussi importer directement grabber.xml dans Tasker et modifier les différents paramètres en fonction de votre utilisation.
+__Vous pouvez aussi importer directement grabber.xml dans Tasker et modifier les différents paramètres en fonction de votre utilisation.__
 
 __Tasker :__
 

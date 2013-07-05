@@ -20,9 +20,9 @@ Installation du SmsWall :
 
 __Pré-requis :__
 
-- Ouvrir un compte chez pusher.com et mettre de côté les informations de connexion à leur API. A la création de votre application Pusher pensez à cocher la case "Enable client events"
+- Ouvrir un compte chez [Pusher](http://pusher.com) et mettre de côté les informations de connexion à leur API. A la création de votre application Pusher pensez à cocher la case "Enable client events"
 
-- Ouvrir un compte chez http://embed.ly/ et mettre de côté les informations de connexion à leur API
+- Ouvrir un compte chez [Embedly](http://embed.ly) et mettre de côté les informations de connexion à leur API
 
 - Posez les sources du wall (le dossier /smswall) sur votre serveur (local ou distant)
 

@@ -30,7 +30,7 @@ Installation :
 __Création de l'environnement__
 
 
-    ~/ cd smswall
+    ~/ $ cd smswall
     ~/smswall $ virtualenv env
 
 
@@ -77,7 +77,7 @@ __Lancement de l'application__
 
 - démarrez le grabber en lancant cette commande :
 
-    (env) dweez@dizou: ~/smswall/grabber $ python grabber.py 
+    (env) ~/smswall/grabber $ python grabber.py 
 
 
 __Problèmes courant__
