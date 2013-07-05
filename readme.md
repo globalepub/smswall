@@ -37,31 +37,6 @@ Cette solution est plus simple à mettre en place que la solution clé 3G + SmsE
 
 ---
 
-Pusher et Embedly
-=================
-
-
-###Websocket
-
-__Pusher :__ <http://pusher.com>
-
-La communication entre les divers éléments qui composent le SmsWall se fait en temps réel grace au service en ligne Pusher.com. Pour une utilisation basique un compte gratuit suffit amplement (Vous pourrez publier 100 000 messages par jour...)
-
-...
-
-
-###Links et Medias
-
-__Embedly :__ <http://embed.ly>
-
-Vous pouvez affichez en mode plein écran les photos ou vidéos jointes dans les messages envoyés.
-
-Les liens externes, non interpretés par l'API Twitter sont envoyés à http://embed.ly/ qui les décompresse et retourne un 'embed' en fonction du type de plateforme par laquelle elle a été envoyée: Instagram, Youtube, Flickr, ... + de 250 plateformes de partage de contenu sont reconnues. La création d'un compte Embedly est donc requise (l'inscription est gratuite et vous pourrez afficher jusqu'à 5000 embeds / mois)
-
-Lorsqu'un ou plusieurs liens sont présents dans un message, une icone ou une miniature apparait pour chaque lien dans la prévisualisation (admin) du tweet. Si le média correspondant provient directement de Twitter il est affiché instantanément. Par contre une simple icone sera affichée dans un premier temps si il s'agit d'un lien non pris en charge par l'API Twitter. Celui-ci est automatiquement envoyé à Embedly lorsque vous cliquez sur l'icone correspondante et en retour vous visualiserez le contenu du lien en fonction de son type : photo, vidéo, site web. Après la première visualisation du média l'icone est remplacée, pour cette session, par une miniature (l'url finale n'est actuellement pas sauvée en BDD)
-
-Si le lien trouvé est de type 'site web' et pas un média à proprement parler, la page est explorée et une image est éventuellement retournée par Embedly. Attention, cette image ne'est pas forcément pertinente. Il peut s'agir du logo du site, d'une publicité ou même d'une image correspondant à un autre article.
-
 
 
 __Amusez-vous bien :)__

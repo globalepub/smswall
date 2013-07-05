@@ -24,10 +24,11 @@ __Pré-requis :__
 
 - Ouvrir un compte chez http://embed.ly/ et mettre de côté les informations de connexion à leur API
 
+- Posez les sources du wall (le dossier /smswall) sur votre serveur (local ou distant)
 
 __Installation :__
 
-- Posez les sources du wall (le dossier /smswall) sur votre serveur (local ou distant)
+
 - Copiez le fichier de configuration d'exemple conf.inc.sample.php et renommez le en conf.inc.php.
 - Modifiez le fichier conf.inc.php avec les paramètres de connexion à votre base de données ainsi que les informations qui vous ont été fournis par Embedly et Pusher
 
@@ -38,6 +39,11 @@ __Création de la base de donnée__
 
 Votre SmsWall est opérationnel, si vous utilisez le grabber de tweet vous pouvez le lancer, les messages devraient commencer à tomber sur le mur.
 
+
+Consultation :
+--------------
+
+
 __Administration__
 
 Rendez vous sur http://www.mondomaine.com/smswall/admin
@@ -47,8 +53,29 @@ __Wall public__
 Dans un autre onglet de votre navigateur ou depuis une autre machine, rendez vous sur http://www.mondomaine.com/smswall
 
 
-Accès protégé (.htaccess/.htpasswd) :
--------------------------------------
+###Websocket
+
+__Pusher :__ <http://pusher.com>
+
+La communication entre les divers éléments qui composent le SmsWall se fait en temps réel grace au service en ligne Pusher.com. Pour une utilisation basique un compte gratuit suffit amplement (Vous pourrez publier 100 000 messages par jour...)
+
+...
+
+
+###Links et Medias
+
+__Embedly :__ <http://embed.ly>
+
+Vous pouvez affichez en mode plein écran les photos ou vidéos jointes dans les messages envoyés.
+
+Les liens externes, non interpretés par l'API Twitter sont envoyés à http://embed.ly/ qui les décompresse et retourne un 'embed' en fonction du type de plateforme par laquelle elle a été envoyée: Instagram, Youtube, Flickr, ... + de 250 plateformes de partage de contenu sont reconnues. La création d'un compte Embedly est donc requise (l'inscription est gratuite et vous pourrez afficher jusqu'à 5000 embeds / mois)
+
+Lorsqu'un ou plusieurs liens sont présents dans un message, une icone ou une miniature apparait pour chaque lien dans la prévisualisation (admin) du tweet. Si le média correspondant provient directement de Twitter il est affiché instantanément. Par contre une simple icone sera affichée dans un premier temps si il s'agit d'un lien non pris en charge par l'API Twitter. Celui-ci est automatiquement envoyé à Embedly lorsque vous cliquez sur l'icone correspondante et en retour vous visualiserez le contenu du lien en fonction de son type : photo, vidéo, site web. Après la première visualisation du média l'icone est remplacée, pour cette session, par une miniature (l'url finale n'est actuellement pas sauvée en BDD)
+
+Si le lien trouvé est de type 'site web' et pas un média à proprement parler, la page est explorée et une image est éventuellement retournée par Embedly. Attention, cette image ne'est pas forcément pertinente. Il peut s'agir du logo du site, d'une publicité ou même d'une image correspondant à un autre article.
+
+
+###Accès protégé (.htaccess/.htpasswd) :
 
 Un .htaccess est présent dans le dossier admin. Il faut le renommer (oter les __), lui associer un .htpasswd, et configurer le chemin d'accès du .htpasswd.
 
