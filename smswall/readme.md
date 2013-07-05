@@ -30,6 +30,9 @@ __Installation :__
 - Posez les sources du wall (le dossier /smswall) sur votre serveur (local ou distant)
 - Copiez le fichier de configuration d'exemple conf.inc.sample.php et renommez le en conf.inc.php.
 - Modifiez le fichier conf.inc.php avec les paramètres de connexion à votre base de données ainsi que les informations qui vous ont été fournis par Embedly et Pusher
+
+__Création de la base de donnée__
+
 - Créez un base de donnée que vous nommerez 'smswall' (si vous disposez des droits root sur mysql vous pouvez vous rendre sur la page http://www.mondomaine.com/smswall/admin/init_db.php)
 - Pour créer les tables rendez vous sur la page http://www.mondomaine.com/smswall/admin/init_tables.php
 
