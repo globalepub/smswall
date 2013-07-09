@@ -55,7 +55,7 @@ try {
 try{
     $con = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $con->beginTransaction();
-    $qry = $con->prepare('INSERT INTO config_wall (channel_id, modo_type, hashtag, userstream, phone_number, theme, bulle, avatar, retweet, ctime, mtime) VALUES(?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)');
+    $qry = $con->prepare('INSERT INTO config_wall (channel_id, modo_type, hashtag, userstream, phone_number, theme, bulle, avatar, retweet, ctime, mtime) VALUES(?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)');
     $qry->execute(array(uniqid(), 1, '#rennes', 0, '0606060606', 'default', 0, 1, 1 ));
     $con->commit();
 
