@@ -18,6 +18,16 @@ function sortStatusesById($item1,$item2){
     return ($item1->id_str > $item2->id_str) ? 1 : -1;
 }
 
+function tagSplitter($tagstr) {
+    $tag_ari = explode(',', $tagstr);
+    $clean = array();
+    foreach($tag_ari as $tag){
+        $clean[] = trim($tag);
+    }
+    $paramstr = urlencode( utf8_encode( implode(' OR ', $clean) ) );
+    return $paramstr;
+}
+
 function search(array $query){
     $toa = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
     return $toa->get('search/tweets', $query);
@@ -29,7 +39,7 @@ $last = $last_result->fetch(PDO::FETCH_ASSOC);
 $last_ref_id = ($last['ref_id']) ? $last['ref_id'] : '';
 
 $query = array(
-  "q" => $config['hashtag'],
+  "q" => tagSplitter( $config['hashtag'] ),
   "result_type" => "recent",
   "since_id" => $last_ref_id,
 );
@@ -77,24 +87,28 @@ foreach ($statuses as $result) {
 
     // htmlisation du message
     $message_html = utf8_decode($result->text);
-    foreach($links as $link){
-        $html_link = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
-        $link_formated = sprintf($html_link, $link['expanded_url'], $link['type'], $link['expanded_url'], $link['url']);
-        $message_html = str_replace($link['url'], $link_formated, $message_html);
+    if(!empty($links)){
+        foreach($links as $link){
+            $html_link = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
+            $link_formated = sprintf($html_link, $link['expanded_url'], $link['type'], $link['expanded_url'], $link['url']);
+            $message_html = str_replace($link['url'], $link_formated, $message_html);
+        }
     }
-    foreach($medias as $media){
-        $html_media = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
-        $media_formated = sprintf($html_media, $media['media_url'], $media['type'], $media['media_url'], $media['url']);
-        $message_html = str_replace($media['url'], $media_formated, $message_html);
+    if(!empty($medias)){
+        foreach($medias as $media){
+            $html_media = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
+            $media_formated = sprintf($html_media, $media['media_url'], $media['type'], $media['media_url'], $media['url']);
+            $message_html = str_replace($media['url'], $media_formated, $message_html);
+        }
     }
 
     $provider = 'TWITTER';
     $ref_id = $result->id_str;
     $author = $result->user->screen_name;
     $message = utf8_decode($result->text);
-    $message_html = utf8_decode($message_html);
+    $message_html = $message_html;
     $avatar = $result->user->profile_image_url;
-    $links = (!empty($links)) json_encode($links);
+    $links = (!empty($links)) ? json_encode($links) : "";
     $medias = json_encode($medias);
     $ctime = date('Y-m-d H:i:s', strtotime($result->created_at));
     $ctime_db = date('Y-m-d H:i:s', strtotime($result->created_at) - date("Z"));
@@ -129,3 +143,10 @@ foreach ($statuses as $result) {
 
 }
 
+if(count($statuses)==1) {
+    echo "1 nouveau message";
+}else if(count($statuses)==1){
+    echo count($statuses) . " nouveaux messages";
+}else{
+    echo "Pas de nouveau message";
+}
