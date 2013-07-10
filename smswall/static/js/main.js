@@ -45,6 +45,13 @@ channel.bind('update_avatar', function(data){
     window.location.href = window.location.href;
 });
 
+channel.bind('update_phone', function(data){
+    $("#phone").html(data.phone);
+});
+
+channel.bind('update_hashtag', function(data){
+    $("#hashtag").html(data.hashtag);
+});
 
 addTwut = function(data,age){
     // Chemin des avatars par défaut personnalisables
@@ -57,7 +64,7 @@ addTwut = function(data,age){
     var tpl = _.template($("#tpl_tweet").html());
     var tpl_message = tpl(data);
 
-    $('ul').prepend(tpl_message);
+    $('ul#containerMsg').prepend(tpl_message);
 
     // Masquage des messages modérés
     if(data.visible == true){
@@ -116,11 +123,8 @@ create_splash = function(data){
         var img = new Image();
 
         $(img).load(function () {
-            $("#overlayMedia").fadeIn("fast",function(){
-                // Fin de l'anim
-            });
+            $("#overlayMedia").fadeIn("fast");
             $("#bulleMedia").show();
-            //$("#bulleMedia").css('width','830px');
 
             $(this).css('display','none');
             $(this).attr('id','viewer');
@@ -128,10 +132,8 @@ create_splash = function(data){
 
             var spacer = 100;
 
-            // Petit trick pour virer le 'px' du css()
-            // @todo: récupérer offset()
-            var pad = $("#bulleMedia").css('top').replace(/[^-\d\.]/g, '') * 2;
-            var mar = $("#viewer").css('top').replace(/[^-\d\.]/g, '') * 2;
+            var pad = $("#bulleMedia").css('padding').replace(/[^-\d\.]/g, '');
+            var mar = $("#viewer").css('margin').replace(/[^-\d\.]/g, '');
 
             if($(this).width() > $(document).width() || $(this).height() > $(document).height() - spacer){
                 if($(this).width() > $(this).height() && $(this).height() < $(document).height() - spacer) {
@@ -143,15 +145,16 @@ create_splash = function(data){
                 }
             }
 
-            posX = ( $(window).width() - ($(this).width() + pad + mar) ) / 2;
-            posY = ( $(window).height() - ($(this).height() + pad + mar) ) / 2;
+            posX = ( ($(window).width() - $(this).width()) / 2 )  - pad - mar;
+            posY = ( ($(window).height() - $(this).height()) / 2) - pad - mar;
 
-            $("#bulleMedia").css({'width': 'auto', 'top': posY, 'left': posX });
+            $("#bulleMedia").css({'width': $(this).width(), 'top': posY, 'left': posX });
 
             $(this).fadeIn('slow',function(){
                 // Fin de l'anim
                 $("#bulleMedia").fadeIn('slow');
             });
+
         }).attr('src', data.html);
 
     }else{

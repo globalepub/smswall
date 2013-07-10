@@ -28,10 +28,9 @@
     </div>
 
     <div id="hashtag_bloc" style="<?php echo $hastagBlocState; ?>">
-        <div class="title">Hashtag / RSS :</div>
+        <div class="title">Hashtags, mots clés :</div>
         <div class="subTitle">
-            Faites précéder les tags du #<br/>
-            Tags multiples : séparés par une virgule.
+            Séparez vos mots clés ou vos hashtags (précédés d'un #) par une virgule: <code>#hashtag, mot clé</code>
         </div>
         <form id="hashForm" class="form-inline">
             <div class="input-append">
@@ -64,7 +63,7 @@
 
     <div class="title">Filtrage des retweets (RT) :</div>
     <form id="retweetForm" class="form-inline">
-        <div class="subTitle">Filtrage des RT: pour les nouveaux messages seulement. Attention, actuellement les RT sont sauvés en base</div>
+        <div class="subTitle">Pour les nouveaux messages seulement.</div>
         <?php
         $showRtState = $hideRtState = '';
         if($config['retweet'] == 1){
@@ -126,5 +125,18 @@
         </select>
         <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
     </form>
+
+    <div class="title">SMS</div>
+        <div class="subTitle">
+            N° de téléphone pour les SMS
+        </div>
+        <form id="phoneForm" action="update_config.php" method="post">
+            <div class="input-append">
+                <input class="span2" id="numberForm" type="text" name="numberForm" value="<?php echo $config['phone_number']; ?>">
+                <button id="submitPhone" class="btn" type="submit">Modifier</button>
+            </div>
+            <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
+        </form>
+    </div>
 
 </div>
