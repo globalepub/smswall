@@ -13,7 +13,7 @@ var privatechannel = pusher.subscribe('private-' + config.channel_id);
 
 stack_cnt = 0;
 
-///////////////////////////////
+// Canal de Présence Pusher
 Pusher.channel_auth_endpoint = 'pusher-auth-presence.php';
 var presenceChannel = pusher.subscribe('presence-' + config.channel_id);
 
@@ -34,9 +34,11 @@ presenceChannel.bind('pusher:member_removed', function(member) {
     console.log("Membre parti");
     $("#countmbr").html(presenceChannel.members.count);
 });
-///////////////////////////////
 
 
+/**
+ * Ajout d'un message dans la pile en asynchrone
+ */
 
 channel.bind('new_twut', function(data) {
     addTwut(data, 'new');
@@ -52,15 +54,13 @@ addTwut = function(data,age){
     // Préparation du template du message
     var tpl = _.template($("#tpl_tweet").html());
     var tpl_message = tpl(data);
+
     // Nouveau message ou lecture en bdd ?
     if(age == 'new'){
         $('ul#containerMsg').prepend( tpl_message );
     }else{
         $('ul#containerMsg').append( tpl_message );
     }
-
-    // LIENS MEDIAS
-    //$('.internallink', '#t'+data.id).bind('click', function() { openLink(data.id, data.links) } );
 
     // BULLE
     $('.bulOff', '#t'+data.id).bind('click', function() { openBubble(data) } );
@@ -189,9 +189,7 @@ create_viewer = function(data_obj){
 
 load_image = function(url){
     var tpl = _.template($("#tpl_img_loader").html());
-    // var htmlembed = tpl(data);
     var htmlembed = tpl();
-
 
     var img = new Image();
     $(img).load(function () {
@@ -470,18 +468,14 @@ $(document).ready(function() {
 
     $("#phoneForm").submit(function(){
         $.post("update_config.php",
-            { phone: $("#numberForm").val() },
+            { phone: $("#numberForm").val(), channel: $("#channelForm").val() },
             function(data){
-                $("#qrcode").empty();
-                $("#qrcode").html('<img src="qrcode.png" />');
+                if(!isset(data.error)){
+                    $(".label-success", $("#phoneForm")).show();
+                }
             }, "json"
          );
         return false;
-    });
-
-    $("#qrbtn").click(function(){
-        $("#qrcode").empty();
-        $("#qrcode").html('<img src="qrcode.png" />');
     });
 
 

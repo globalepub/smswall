@@ -107,6 +107,11 @@ a:hover { color: #222222; }
 	padding-bottom: 5px;
 }
 
+#bulleOptions code {
+	background-color: #626262;
+    border: 1px solid #919191;
+    color: #FFFFFF;
+}
 
 
 /*

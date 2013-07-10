@@ -1,6 +1,5 @@
 <?php
 require_once('smswall.inc.php');
-include('libs/twitdate.php');
 
 // Lecture de la config
 try {
@@ -18,7 +17,11 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 <head>
 	<meta name="generator" content="Bug" />
 	<title>SmsTwitterWall</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
 	<link href="themes/<?php echo $theme; ?>/main.css" media="screen" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="http://js.pusher.com/1.12/pusher.min.js"></script>
@@ -36,7 +39,7 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 	}
 	?>
 	<script type="text/javascript">
-	// passage de la config à javascript
+	// config pour javascript
 	var config = <?php echo json_encode($config); ?>;
 	config.PUSHER_KEY = '<?php echo PUSHER_KEY; ?>';
 	</script>
@@ -44,10 +47,11 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 </head>
 <body>
 
-<div id="menu">
-	<span id="infos"></span>
-	<span id="logo"></span>
-</div>
+<ul id="infos">
+	<li><div class="highlight">Envoyer un message sur le mur :</div></li>
+	<li><div class="line">Par Twitter avec le tag <span id="hashtag"><?php echo $config['hashtag']; ?></span></div></li>
+	<li><div class="line">ou par SMS, au <span id="phone"><?php echo $config['phone_number']; ?></span></div></li>
+</ul>
 
 <div id="wrapper">
 	<ul id="containerMsg"></ul>
@@ -61,11 +65,7 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 	<div id="bulleMedia"></div>
 </div>
 
-<div id="footer">
-	<div id="ftContainer">
-		<div id="ftContent"></div>
-	</div>
-</div>
+<div id="footer"></div>
 
 <!-- Templates -->
 

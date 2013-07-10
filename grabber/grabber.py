@@ -127,6 +127,8 @@ class SmsWallListener(StreamListener):
                 ca_utc = utc.localize(ca_origin)
                 created_at = ca_utc.astimezone(tzone).strftime('%Y-%m-%d %H:%M:%S')
 
+                print "%s: %s" % (data['user']['screen_name'], data['text'])
+
                 links = get_links(data)
                 medias = get_medias(data)
                 message_html = make_rich_links(data['text'], links, medias)

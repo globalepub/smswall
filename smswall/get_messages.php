@@ -1,7 +1,7 @@
 <?php
 require_once('smswall.inc.php');
 include('func.php');
-require('libs/Pusher.php');
+//require('libs/Pusher.php');
 
 date_default_timezone_set('Europe/Paris');
 

@@ -1,6 +1,6 @@
 <?php
 require_once('../smswall.inc.php');
-include('../libs/twitdate.php');
+//include('../libs/twitdate.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

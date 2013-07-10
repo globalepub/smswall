@@ -6,13 +6,14 @@ require_once('../smswall.inc.php');
 // Lib Pusher ( websockets )
 require('../libs/Pusher.php');
 
-$up_hashtag = $_POST['hashtag'];
-$up_userstream = $_POST['userstream'];
-$up_modo_type = $_POST['modo_type'];
-$up_avatar = $_POST['avatar'];
-$up_theme = $_POST['theme'];
-$up_channel = $_POST['channel'];
-$up_retweet = $_POST['retweet'];
+$up_hashtag = (!empty($_POST['hashtag'])) ? $_POST['hashtag'] : "";
+$up_userstream = (!empty($_POST['userstream'])) ? $_POST['userstream'] : "";
+$up_modo_type = (!empty($_POST['modo_type'])) ? $_POST['modo_type'] : "";
+$up_avatar = (!empty($_POST['avatar'])) ? $_POST['avatar'] : "";
+$up_theme = (!empty($_POST['theme'])) ? $_POST['theme'] : "";
+$up_channel = (!empty($_POST['channel'])) ? $_POST['channel'] : "";
+$up_retweet = (!empty($_POST['retweet'])) ? $_POST['retweet'] : "";
+$up_phone = (!empty($_POST['phone'])) ? $_POST['phone'] : "";
 
 // Choix du type de stream
 if(!empty($up_userstream)){
@@ -31,9 +32,14 @@ if(!empty($up_userstream)){
 // Update de la chaine hashtag
 if(!empty($up_hashtag)){
 	try {
-		$sql = "UPDATE config_wall SET hashtag = ? WHERE id = 1;";
+		$sql = "UPDATE config_wall SET hashtag = ? WHERE channel_id = ?;";
 		$q = $db->prepare($sql);
-		$q->execute(array( utf8_decode($up_hashtag) ));
+		$q->execute(array( utf8_decode($up_hashtag), $up_channel ));
+
+		$arrayPush['hashtag'] = $up_hashtag;
+    	$pusher = PusherInstance::get_pusher();
+    	$pusher->trigger('Channel_' . $up_channel, 'update_hashtag', $arrayPush);
+
 		$response['hashtag'] = utf8_encode($up_hashtag);
 
 	} catch(PDOException $e) {
@@ -101,6 +107,24 @@ if(!empty($up_retweet)){
 		$q->execute(array($toggleRetweet,$up_channel));
 
 		$response['retweet'] = $up_retweet;
+
+	} catch(PDOException $e) {
+		$response['error'] = $e->errorInfo();
+	}
+}
+
+// Update du n° phone
+if(!empty($up_phone)){
+	try {
+		$sql = "UPDATE config_wall SET phone_number = ? WHERE channel_id = ?;";
+		$q = $db->prepare($sql);
+		$q->execute(array( utf8_decode($up_phone), $up_channel ));
+
+		$arrayPush['phone'] = $up_phone;
+    	$pusher = PusherInstance::get_pusher();
+    	$pusher->trigger('Channel_' . $up_channel, 'update_phone', $arrayPush);
+
+		$response['phone'] = utf8_encode($up_phone);
 
 	} catch(PDOException $e) {
 		$response['error'] = $e->errorInfo();
