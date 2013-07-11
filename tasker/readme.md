@@ -103,4 +103,6 @@ SmsEnabler
 ==========
 
 Il est aussi possible d'utiliser SmsEnabler sur un PC sous Windows avec une clé 3G pour récupérer les SMS.
-...
+
+Vous retrouverez la documentation complète à l'adresse http://smswall.blogspot.fr/2011/03/smswall-derniere-version-le-mode.html (scrollez jusqu'à "La partie SMS")
+
