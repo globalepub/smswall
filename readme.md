@@ -36,7 +36,7 @@ Si vous optez pour cette solution il ne faudra pas lancer le grabber de tweet en
 
 Il est désormais possible d'utiliser un appareil sous Android (avec carte SIM) pour récupérer les SMS. Ce script utilise l'application Tasker pour afficher sur le wall tous les SMS qui sont envoyés au mobile sur lequel tourne Tasker.
 
-Cette solution est plus simple à mettre en place que la solution clé 3G + SmsEnabler. Les deux solutions sont compatibles avec le SmsWall, à vous de choisr la plus adaptée au materiel que vous avez à votre disposition.
+Cette solution est plus simple à mettre en place que la solution clé 3G + SmsEnabler. Les deux solutions sont compatibles avec le SmsWall, à vous de choisir la plus adaptée au matériel que vous avez à votre disposition.
 
 [Documentation Tasker](https://github.com/assobug/smswall/tree/master/tasker#tasker) |
 [Documentation SmsEnabler](https://github.com/assobug/smswall/tree/master/tasker#smsenabler)
