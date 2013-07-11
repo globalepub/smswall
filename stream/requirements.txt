@@ -1,0 +1,4 @@
+SQLAlchemy==0.8.1
+pusher==0.7
+pytz==2013b
+tweepy==2.0

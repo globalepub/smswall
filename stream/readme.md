@@ -3,11 +3,13 @@ Grabber
 
 L'objet de cette micro-application en Python est de créer une interface entre l'API Streaming de Twitter (v1.1) et le SmsWall
 
+Si vous décidez de mettre en place cette solution il ne faut pas lancer en parralèle le grabber de tweet en PHP.
+
 __Pourquoi Python ?__
 
-Alors que le smswall est en PHP, le grabber lui est en Python. La raison est assez simple: contrairement à l'ancienne API, l'API Streaming requiert une connexion ouverte en permanence (long polling). Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraichissement périodique comme nous le faisions avec les anciennes versions du SmsWall.
+L'API Streaming de Twitter requiert une connexion ouverte en permanence (long polling). Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraichissement périodique comme nous le faisons avec /smswall/admin/register_tweet.php.
 
-Il est préférable de lancer un script en ligne de commande qui tournera en permanence pendant la durée de l'utilisation du wall (imaginez un tuyaux ouvert entre Twitter et votre SmsWall avec un flux constant d'information entre les deux). PHP n'est pas le plus adapté pour ce genre de travail alors que Python répond tout à fait à cette demande.
+Pour se "brancher" sur le stream de Twitter il est préférable de lancer un script en ligne de commande qui tournera en permanence pendant la durée de l'utilisation du wall (imaginez un tuyaux ouvert entre Twitter et votre SmsWall avec un flux constant d'information entre les deux). PHP n'est pas le plus adapté pour ce genre de travail alors que Python répond tout à fait à cette demande.
 
 __Pré-requis__
 
@@ -77,7 +79,7 @@ __Lancement de l'application__
 
 - démarrez le grabber en lancant cette commande :
 
-    (env) ~/smswall/grabber $ python grabber.py 
+    (env) ~/smswall/grabber $ python grabber.py
 
 
 __Problèmes courant__

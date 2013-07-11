@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from flask import Flask
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, desc
 from sqlalchemy.engine.url import URL
@@ -11,16 +10,12 @@ import json
 import pusher
 import pytz
 import re
-#import ast
 
 from config import *
 from models import ConfigWall, Tweet, Base
 
 utc = pytz.utc
 tzone = pytz.timezone('Europe/Paris')
-
-app = Flask(__name__)
-app.debug = True
 
 engine = create_engine(URL(**DATABASE))
 Session = sessionmaker(bind=engine)
@@ -42,14 +37,14 @@ def start_grabber():
     s = SmsWallListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
-    app.stream = Stream(auth, s, timeout=43200.0) # timeout: 12 heures
+    stream = Stream(auth, s, timeout=43200.0) # timeout: 12 heures
 
     if not get_config_param('userstream'):
         print "lancement du grabber. Hashtag en cours : %s" % previous_hash
-        app.stream.filter(track=[ previous_hash ], stall_warnings=True)
+        stream.filter(track=[ previous_hash ], stall_warnings=True)
     else:
         print "stream du compte Twitter associé à l'application WallFactory"
-        app.stream.userstream()
+        stream.userstream()
 
 
 def make_rich_links(txt, links, medias):
