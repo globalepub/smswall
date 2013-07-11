@@ -1,9 +1,5 @@
 <?php
-
 require_once('../smswall.inc.php');
-//include('init_db.php');
-
-// Lib Pusher ( websockets )
 require('../libs/Pusher.php');
 
 $up_hashtag = (!empty($_POST['hashtag'])) ? $_POST['hashtag'] : "";
