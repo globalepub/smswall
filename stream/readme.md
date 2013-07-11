@@ -7,7 +7,7 @@ Si vous décidez de mettre en place cette solution il ne faut pas lancer en parr
 
 __Pourquoi Python ?__
 
-L'API Streaming de Twitter requiert une connexion ouverte en permanence (long polling). Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraichissement périodique comme nous le faisons avec /smswall/admin/register_tweet.php.
+L'API Streaming de Twitter requiert une connexion ouverte en permanence. Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraichissement périodique comme nous le faisons avec /smswall/admin/register_tweet.php.
 
 Pour se "brancher" sur le stream de Twitter il est préférable de lancer un script en ligne de commande qui tournera en permanence pendant la durée de l'utilisation du wall (imaginez un tuyaux ouvert entre Twitter et votre SmsWall avec un flux constant d'information entre les deux). PHP n'est pas le plus adapté pour ce genre de travail alors que Python répond tout à fait à cette demande.
 
