@@ -1,7 +1,7 @@
 <?php
 /*
-Références pour la documentation:
-https://dev.twitter.com/docs/api/1.1/get/search/tweets
+Based on TwitterOAuth
+PHP library for working with Twitter's OAuth API.
 https://github.com/abraham/twitteroauth
 */
 header("refresh:20;url=register_tweet.php");

@@ -9,6 +9,7 @@ Spécifications :
 -   Filtrage des tweets sur un ou plusieurs #hashtag
 -   OU
 -	Affichage de la timeline du compte Twitter utilisé pour l'authentification (https://dev.twitter.com/docs/streaming-apis/streams/user)
+-
 -   Pilotage et animation du wall depuis l'admin
 -   Modération des tweets et SMS à priori ou à posteriori.
 -   Masquage des RT
@@ -40,15 +41,23 @@ __Création de la base de donnée__
 Votre SmsWall est opérationnel, si vous utilisez le grabber de tweet vous pouvez le lancer, les messages devraient commencer à tomber sur le mur.
 
 
-Consultation :
---------------
+Lancement de l'application :
+----------------------------
 
 
 __Administration__
 
 Rendez vous sur http://www.mondomaine.com/smswall/admin
 
-__Wall public__
+__Connexion à Twitter et captation des tweets__
+
+Dans un autre onglet de votre navigateur rendez-vous à l'adresse http://www.mondomaine.com/smswall/admin/register_tweet.php
+
+Ce script se connecte à l'API REST de Twitter et non pas à l'API streaming. Il est sans doute plus facile à mettre en place puisqu'il est en PHP mais ce n'est pas la solution la plus conseillée: Les tweets sont mis à jour periodiquement et non pas en temps réel. La documentation de Twitter est claire sur le sujet, si c'est l'exhausitivité sur un tag donné qui vous intéresse il faudra vous tourner vers l'API streaming. Vous trouverez dans le dossier [/stream](https://github.com/assobug/smswall/tree/master/stream du dépot une petite application en Python qui vous permettra de profiter du stream facilement. Lancez-vous !
+
+Plus d'information sur le sujet : https://dev.twitter.com/docs/api/1.1/get/search/tweets
+
+__Affichage du wall public__
 
 Dans un autre onglet de votre navigateur ou depuis une autre machine, rendez vous sur http://www.mondomaine.com/smswall
 
