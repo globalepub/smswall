@@ -3,12 +3,15 @@
 # Base de données
 
 DATABASE = {
-	'drivername': 'mysql',
+	'drivername': 'mysql+mysqldb',
     'host': 'localhost',
     'port': '3306',
     'username': 'wally',
     'password': 'k4m0ul0x',
-    'database': 'smswall'
+    'database': 'smswall',
+    'query': {
+    	'charset': 'utf8'
+    }
 }
 
 # TWITTER
