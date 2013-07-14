@@ -2,10 +2,12 @@
 
 # Base de données
 
-confdb = {
-    'user': 'votreuser',
-    'password': 'votrepassword',
+DATABASE = {
+	'drivername': 'mysql',
     'host': 'localhost',
+    'port': '3306',
+    'username': 'wally',
+    'password': 'k4m0ul0x',
     'database': 'smswall'
 }
 
