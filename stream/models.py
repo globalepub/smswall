@@ -12,7 +12,7 @@ class ConfigWall(Base):
     modo_type = Column(Integer)
     hashtag = Column(Text)
     userstream = Column(Integer)
-    phone_number = Column(String(12))
+    phone_number = Column(String(16))
     theme = Column(String(20))
     bulle = Column(Integer)
     avatar = Column(Integer)

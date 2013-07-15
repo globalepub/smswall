@@ -14,7 +14,7 @@ try {
         modo_type BOOL,
         hashtag TEXT,
         userstream BOOL,
-        phone_number VARCHAR(12),
+        phone_number VARCHAR(16),
         theme VARCHAR(20),
         bulle BOOL,
         avatar BOOL,

@@ -470,9 +470,7 @@ $(document).ready(function() {
         $.post("update_config.php",
             { phone: $("#numberForm").val(), channel: $("#channelForm").val() },
             function(data){
-                if(!isset(data.error)){
-                    $(".label-success", $("#phoneForm")).show();
-                }
+                $(".label-success", $("#phoneForm")).show();
             }, "json"
          );
         return false;
