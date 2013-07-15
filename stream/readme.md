@@ -75,14 +75,18 @@ Création des tables et init de la configuration du wall :
     (env) ~/smswall/grabber $ python init_db.py
 
 
-__Lancement de l'application__
+Lancement de l'application
+--------------------------
 
-- démarrez le grabber en lançant cette commande :
+Démarrez le grabber en lançant cette commande :
 
     (env) ~/smswall/grabber $ python grabber.py
 
+Pour arrêter proprement le processus en cours d'exécution, appuyez sur Ctrl+C.
 
-__Problèmes courant__
+
+Problèmes courant
+-----------------
 
 ImportError: No module named MySQLdb
 
@@ -94,7 +98,7 @@ Ensuite, via PIP :
 
     (env) $ pip install MySQL-python
 
-plus d'infos :
+Plus d'infos :
 
 - http://mysql-python.blogspot.fr/2012/11/is-mysqldb-hard-to-install.html
 - http://codeinthehole.com/writing/how-to-set-up-mysql-for-python-on-ubuntu/
