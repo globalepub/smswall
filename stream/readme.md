@@ -3,11 +3,11 @@ Grabber
 
 L'objet de cette micro-application en Python est de créer une interface entre l'API Streaming de Twitter (v1.1) et le SmsWall
 
-Si vous décidez de mettre en place cette solution il ne faut pas lancer en parralèle le grabber de tweet en PHP.
+Si vous décidez de mettre en place cette solution il ne faut pas lancer en parallèle le grabber de tweet en PHP.
 
 __Pourquoi Python ?__
 
-L'API Streaming de Twitter requiert une connexion ouverte en permanence. Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraichissement périodique comme nous le faisons avec /smswall/admin/register_tweet.php.
+L'API Streaming de Twitter requiert une connexion ouverte en permanence. Ce type de connexion ne doit pas être mis en place sous forme de requete HTTP dans le navigateur avec un rafraîchissement périodique comme nous le faisons avec /smswall/admin/register_tweet.php.
 
 Pour se "brancher" sur le stream de Twitter il est préférable de lancer un script en ligne de commande qui tournera en permanence pendant la durée de l'utilisation du wall (imaginez un tuyaux ouvert entre Twitter et votre SmsWall avec un flux constant d'information entre les deux). PHP n'est pas le plus adapté pour ce genre de travail alors que Python répond tout à fait à cette demande.
 
@@ -23,9 +23,7 @@ __Pré-requis__
 
 - Mysql pour Python (voir bas de page)
 
-_Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des paquets utilisés par le grabber) : http://flask.pocoo.org/docs/installation_
-
-- Pas de script de création de la base de donnée côté Python pour l'instant. Se référer au script d'install de la partie PHP (@todo: lien direct)
+_Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask : http://flask.pocoo.org/docs/installation_
 
 
 Installation :
@@ -61,25 +59,25 @@ Cette opération n'est à effectuer qu'une seule fois. Soit avec le script smswa
 
 Dans un terminal, lancez un shell mysql :
 
-	root@localhost:~# mysql -u root -ppassword
+    root@localhost:~# mysql -u root -ppassword
 
-	mysql> CREATE DATABASE smswall;
+    mysql> CREATE DATABASE smswall;
 
 Création du user wally :
 
-	mysql> GRANT ALL PRIVILEGES ON smswall.* TO wally@localhost IDENTIFIED BY 'k4m0ul0x';
-	mysql> exit
-	bye
+    mysql> GRANT ALL PRIVILEGES ON smswall.* TO wally@localhost IDENTIFIED BY 'k4m0ul0x';
+    mysql> exit
+    bye
 
 Création des tables et init de la configuration du wall :
 
-	(env) ~/smswall $ cd grabber
-	(env) ~/smswall/grabber $ python init_db.py
+    (env) ~/smswall $ cd grabber
+    (env) ~/smswall/grabber $ python init_db.py
 
 
 __Lancement de l'application__
 
-- démarrez le grabber en lancant cette commande :
+- démarrez le grabber en lançant cette commande :
 
     (env) ~/smswall/grabber $ python grabber.py
 
