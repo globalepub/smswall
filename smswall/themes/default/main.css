@@ -13,6 +13,7 @@ a{
 }
 
 #infos {
+	list-style: none outside none;
 	position: fixed;
 	display: block;
 	margin-top: 15px;
@@ -74,15 +75,15 @@ a{
 	background-color: rgba(200,200,200,0.8);
 }
 
-	#splash {
-		font-size:28px;
-		line-height:38px;
-		padding:16px;
-		box-shadow: 0 0 32px rgba(0, 0, 0, 1);
-		-moz-box-shadow: 0 0 32px rgba(0, 0, 0, 1);
-		-webkit-box-shadow: 0 0 32px rgba(0, 0, 0, 1);
-		background-color: #fff;
-	}
+#splash {
+	font-size:28px;
+	line-height:38px;
+	padding:16px;
+	box-shadow: 0 0 32px rgba(0, 0, 0, 1);
+	-moz-box-shadow: 0 0 32px rgba(0, 0, 0, 1);
+	-webkit-box-shadow: 0 0 32px rgba(0, 0, 0, 1);
+	background-color: #fff;
+}
 
 #wrapper {
 	margin: 0;
@@ -124,12 +125,15 @@ a{
 	font-weight: bold;
 	padding: 2px 4px;
 }
-	#splash .author {
-		padding: 4px 8px;
-	}
+
+#splash .author {
+	padding: 4px 8px;
+}
+
 li .textMsg{
 	line-height: 24px;
 }
+
 .time, .debug {
 	color: #a09e89;
 	font-style: italic;
@@ -141,6 +145,7 @@ li .textMsg{
 	float: left;
 	margin-right: 8px;
 }
+
 .avatarbig {
 	height: 65px;
 	width: 65px;
