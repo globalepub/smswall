@@ -90,8 +90,6 @@ ImportError: No module named MySQLdb
 
 Si vous rencontrez cette erreur c'est que MySQL n'est pas correctement installé pour Python sur votre machine.
 
-    ~~$ sudo apt-get install mysql-server mysql-client python-mysqldb~~
-
     $ sudo apt-get install python-dev libmysqlclient-dev
 
 Ensuite, via PIP :
