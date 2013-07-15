@@ -21,7 +21,7 @@ Une fois installée sur votre mobile, lançons nous dans le vif du sujet !
 Création du profil :
 --------------------
 
-Commencez par créer un nouveau profil en cliquant sur le gros bouton + en bas de l'écran d'accueil de Tasker. Donnez lui un nom, par exemple: "Réception de SMS"
+Commencez par créer un nouveau profil en cliquant sur le gros bouton + en bas de l'écran d'accueil de Tasker. Suivant la version de l'application (dépendante de votre version d'Android), on vous demandera de nommer votre tâche soit au début du processus de création, soit à la fin. Quand on vous le demandera, donnez lui un nom simple et générique, par exemple: "Réception de SMS"
 
 Ensuite il faut spécifier le contexte principal. Nous voulons que le téléphone réagisse à l'arrivée de chaque SMS. Nous allons donc choisir __Evénement__ comme premier contexte puis dans la catégorie __Téléphone__ nous sélectionnons le type d'évènement : __SMS reçu__
 
