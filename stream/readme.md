@@ -71,8 +71,8 @@ Création du user wally :
 
 Création des tables et init de la configuration du wall :
 
-    (env) ~/smswall $ cd grabber
-    (env) ~/smswall/grabber $ python init_db.py
+    (env) ~/smswall $ cd stream
+    (env) ~/smswall/stream $ python init_db.py
 
 
 Lancement de l'application
@@ -80,7 +80,7 @@ Lancement de l'application
 
 Démarrez le grabber en lançant cette commande :
 
-    (env) ~/smswall/grabber $ python grabber.py
+    (env) ~/smswall/stream $ python grabber.py
 
 Pour arrêter proprement le processus en cours d'exécution, appuyez sur Ctrl+C.
 
