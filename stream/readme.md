@@ -21,6 +21,8 @@ __Pré-requis__
 
 - Python 2.7 avec Virtualenv et PIP installés et fonctionnels
 
+- Mysql pour Python (voir bas de page)
+
 _Pour plus d'information sur Virtualenv et son utilisation vous pouvez consulter la très bonne introduction d'Armin Ronacher pour l'installation d'un Flask (qui est un des paquets utilisés par le grabber) : http://flask.pocoo.org/docs/installation_
 
 - Pas de script de création de la base de donnée côté Python pour l'instant. Se référer au script d'install de la partie PHP (@todo: lien direct)
@@ -39,13 +41,13 @@ __Création de l'environnement__
 __Activation__
 
 
-    ~/smswall $ env/bin/activate
+    ~/smswall $ . env/bin/activate
 
 
 __Installation des paquets__
 
-
-    (env) ~/smswall $ pip install -r requirements.txt
+    (env) ~/smswall $ cd stream
+    (env) ~/smswall/stream $ pip install -r requirements.txt
 
 
 __Configuration__
@@ -88,5 +90,15 @@ ImportError: No module named MySQLdb
 
 Si vous rencontrez cette erreur c'est que MySQL n'est pas correctement installé pour Python sur votre machine.
 
+    ~~$ sudo apt-get install mysql-server mysql-client python-mysqldb~~
 
-    $ sudo apt-get install mysql-server mysql-client python-mysqldb
+    $ sudo apt-get install python-dev libmysqlclient-dev
+
+Ensuite, via PIP :
+
+    (env) $ pip install MySQL-python
+
+plus d'infos :
+
+- http://mysql-python.blogspot.fr/2012/11/is-mysqldb-hard-to-install.html
+- http://codeinthehole.com/writing/how-to-set-up-mysql-for-python-on-ubuntu/
