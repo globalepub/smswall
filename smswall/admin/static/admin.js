@@ -156,6 +156,15 @@ openLink = function(anchor){ // anchor: lien DOM complet
     });
 }
 
+replace_icon = function(data_obj){
+    ref_id = $(data_obj.elem).attr('data-id');
+    var tpl_thumb = _.template($("#tpl_thumbnailer").html());
+    thumb = tpl_thumb({'id': ref_id, 'url': src_image});
+    $(thumb).insertBefore($(data_obj.elem));
+
+    $(data_obj.elem).remove();
+}
+
 create_viewer = function(data_obj){
     var tpl = _.template($("#tpl_viewer").html());
 
@@ -167,13 +176,7 @@ create_viewer = function(data_obj){
         // si data_obj.elem existe, c'est du embedly sinon c'est du twitter
         // Remplacement du mediaicon par un thumbnail
         if(typeof data_obj.elem != 'undefined'){
-            ref_id = $(data_obj.elem).attr('data-id');
-
-            var tpl_thumb = _.template($("#tpl_thumbnailer").html());
-            thumb = tpl_thumb({'id': ref_id, 'url': src_image});
-            $(thumb).insertBefore($(data_obj.elem));
-
-            $(data_obj.elem).remove();
+            replace_icon(data_obj);
         }
     }
 
@@ -183,7 +186,8 @@ create_viewer = function(data_obj){
         data_obj.image_html = load_image(src_image);
 
         // Chargement du thumbnail embedly en preview dans la liste
-        $(data_obj.elem).css({'background-image': 'url('+src_image+')', 'margin': 0}).removeClass('mediaicon').addClass('async_mediaicon');
+        //$(data_obj.elem).css({'background-image': 'url('+src_image+')', 'margin': 0}).removeClass('mediaicon').addClass('async_mediaicon');
+        replace_icon(data_obj);
     }
 
     if(typeof data_obj.url == 'undefined' && typeof data_obj.original_url != 'undefined'){
