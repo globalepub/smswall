@@ -165,8 +165,15 @@ create_viewer = function(data_obj){
 
         // Chargement du thumbnail en preview dans la liste
         // si data_obj.elem existe, c'est du embedly sinon c'est du twitter
+        // Remplacement du mediaicon par un thumbnail
         if(typeof data_obj.elem != 'undefined'){
-            $(data_obj.elem).css({'background-image': 'url('+src_image+')', 'margin': 0}).removeClass('mediaicon').addClass('async_mediaicon');
+            ref_id = $(data_obj.elem).attr('data-id');
+
+            var tpl_thumb = _.template($("#tpl_thumbnailer").html());
+            thumb = tpl_thumb({'id': ref_id, 'url': src_image});
+            $(thumb).insertBefore($(data_obj.elem));
+
+            $(data_obj.elem).remove();
         }
     }
 

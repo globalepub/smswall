@@ -91,7 +91,8 @@ $iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 			if(typeof(links) != "undefined") {
 				_.each(links, function(link){ %>
 
-					<a href="<%= link.expanded_url %>" class="mediaicon">&nbsp;</a>
+					<a href="<%= link.expanded_url %>" class="mediaicon" data-id="<%= id %>">&nbsp;</a>
+
 				<% });
 			}
 		}
@@ -121,6 +122,14 @@ $iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
     </div>
     <div style="clear: both;"></div>
 </li>
+</script>
+
+<script id="tpl_thumbnailer" type="text/template">
+<div class="thumbnails">
+	<a href="javascript://" class="thumbnail" onclick="directLink(<%= id %>,'<%= url %>');">
+		<img src="<%= url %>" style="width: 40px; height: 40px;" />
+	</a>
+</div>
 </script>
 
 <script id="tpl_viewer" type="text/template">
