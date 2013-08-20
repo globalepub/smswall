@@ -65,7 +65,7 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 	<div id="bulleMedia"></div>
 </div>
 
-<div id="footer"></div>
+<div id="footer">Powered by SmsWall</div>
 
 <!-- Templates -->
 

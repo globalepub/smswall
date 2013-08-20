@@ -44,6 +44,15 @@ a{
 	padding: 2px;
 }
 
+#footer {
+	color: #777;
+	position: absolute;
+	bottom: 0;
+	width: 400px;
+	text-align: center;
+	font-size: 13px;
+}
+
 #hashtag, #phone {
 	background-color: #1A1A1A;
 	color: #6C8FFF;
