@@ -48,4 +48,4 @@ Cette solution est plus simple à mettre en place que la solution clé 3G + SmsE
 __Amusez-vous bien :)__
 
 
-Licence: CC BY-SA
+Licence: ![CC BY-SA](http://upload.wikimedia.org/wikipedia/commons/a/a9/CC-BY-SA.png)
