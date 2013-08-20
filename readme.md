@@ -24,7 +24,7 @@ Au choix (ne pas lancer les deux en même temps):
 
 ###API Streaming ([/stream](https://github.com/assobug/smswall/tree/master/stream))
 
-Cette petite application en Python branchée sur l'API Streaming de Twitter est en charge de récupérer tous les tweets correspondant à votre recherche (hashtags) en temps réel. Le grabber se lance en ligne de commande dans un terminal. Il ouvre une connexion authentifiée avec l'API de Twitter et doit rester connecter en tâche de fond.
+Cette petite application en Python branchée sur l'API Streaming de Twitter est en charge de récupérer tous les tweets correspondant à votre recherche (hashtags) en temps réel. Le grabber se lance en ligne de commande dans un terminal. Il ouvre une connexion authentifiée avec l'API de Twitter et doit rester connecté en tâche de fond.
 
 Si vous optez pour cette solution il ne faudra pas lancer le grabber de tweet en PHP.
 
