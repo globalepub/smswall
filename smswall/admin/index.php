@@ -1,6 +1,7 @@
 <?php
 require_once('../smswall.inc.php');
-//include('../libs/twitdate.php');
+
+$iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,9 +20,6 @@ require_once('../smswall.inc.php');
 </head>
 
 <body>
-<?php
-$iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
-?>
 <div id="menu">
 	<div class="left">
 		<div id="countscr" data-toggle="tooltip" data-placement="bottom" title="Nombre de wall ouvert en ce moment"><span id="countmbr"></span></div>
@@ -34,9 +32,18 @@ $iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 			$userDisplay = "display: none;";
 		}
 		?>
-		<div id="hashtag_choice" title="<?php echo $config['hashtag']; ?>" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" style="<?php echo $tagDisplay; ?>">
+		<div id="hashtag_btn" title="<?php echo $config['hashtag']; ?>" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" style="<?php echo $tagDisplay; ?>">
 			<i class="icon-search icon-white"></i> <?php echo substr(utf8_encode($config['hashtag']), 0, 20).$iscroped; ?>
 		</div>
+
+	    <div id="hashtag_input" class="input-append hide">
+	    	<form id="hashFormMenu" class="form-inline">
+			    <input id="hashMenuInput" class="span3" type="text" value="<?php echo utf8_encode($config['hashtag']); ?>">
+			    <button class="btn" type="submit">Enregistrer</button>
+			    <button class="btn cancel" type="button">X</button>
+			</form>
+	    </div>
+
 
 		<div id="userstream_choice" title="Stream live du compte de l'application" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" style="<?php echo $userDisplay; ?>">
 			<i class="icon-user icon-white"></i> Userstream

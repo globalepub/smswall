@@ -314,7 +314,6 @@ $(document).ready(function() {
     $("#morer").trigger('click');
 
     /* Compteur de walls connectés au channel Pusher */
-    //$("#countscr").tooltip();
     $("[data-toggle=tooltip]").tooltip();
 
 
@@ -350,6 +349,35 @@ $(document).ready(function() {
         return false;
     });
 
+    /*
+     * Modification du hashtag dans le header menu
+     */
+
+    $("#hashtag_btn").click(function(){
+        $("#hashtag_btn, #hashtag_input").toggle();
+        $("input", "#hashtag_input").focus();
+    });
+
+    $(".cancel", "#hashFormMenu").click(function(){
+        $("#hashtag_btn, #hashtag_input").toggle();
+    });
+
+    $("#hashFormMenu").submit(function(){
+        // quasi doublon avec le form de la modale
+        $.post("update_config.php",
+            { hashtag: $("#hashMenuInput").val(), channel: $("#channelForm").val() },
+            function(data){
+                var iscroped = (data.hashtag.length > 20) ? "..." : "";
+                var shorttag = data.hashtag.substring(0,20) + iscroped;
+                icon = $("<i>").addClass('icon-search icon-white');
+                $("#hashtag_btn").empty().append($(icon));
+                $("#hashtag_btn").append(" " + shorttag);
+                $("#hashtag_btn").attr("data-original-title", data.hashtag);
+                $("#hashtag_btn, #hashtag_input").toggle();
+            }, "json"
+        );
+        return false;
+    });
 
     /*
      * Modale Options
@@ -370,24 +398,21 @@ $(document).ready(function() {
     });
 
     $("button", $("#userstream")).click(function(){
-        //$(".label-success", $(this)).hide();
-        console.log('click');
         $.post("update_config.php",
             { userstream: $(this).val(), channel: $("#channelForm").val() },
             function(data){
-                //$(".label-success", $("#modoForm")).show();
                 if(data.userstream == 'user'){
                     $("[value=user]").addClass('active btn-success');
                     $("[value=tag]").removeClass('active btn-success');
                     $("#hashtag_bloc").slideUp();
                     $("#userstream_choice").show();
-                    $("#hashtag_choice").hide();
+                    $("#hashtag_btn").hide();
                 }else{
                     $("[value=user]").removeClass('active btn-success');
                     $("[value=tag]").addClass('active btn-success');
                     $("#hashtag_bloc").slideDown();
                     $("#userstream_choice").hide();
-                    $("#hashtag_choice").show();
+                    $("#hashtag_btn").show();
                 }
             }, "json"
         );
@@ -402,9 +427,9 @@ $(document).ready(function() {
                 var iscroped = (data.hashtag.length > 20) ? "..." : "";
                 var shorttag = data.hashtag.substring(0,20) + iscroped;
                 icon = $("<i>").addClass('icon-search icon-white');
-                $("#hashtag_choice").empty().append($(icon));
-                $("#hashtag_choice").append(" " + shorttag);
-                $("#hashtag_choice").attr("data-original-title", data.hashtag);
+                $("#hashtag_btn").empty().append($(icon));
+                $("#hashtag_btn").append(" " + shorttag);
+                $("#hashtag_btn").attr("data-original-title", data.hashtag);
 
                 $(".label-success", $("#hashForm")).show();
             }, "json"
