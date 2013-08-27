@@ -20,7 +20,7 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<link href="../static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="static/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
 	<link href="themes/<?php echo $theme; ?>/main.css" media="screen" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
