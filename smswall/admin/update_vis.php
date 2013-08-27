@@ -19,7 +19,8 @@ if(isset($oldvis) && isset($id)){
 	$response['id'] = $id;
 	$response['visible'] = $visible;
 
-	$pusher = PusherInstance::get_pusher();
+	$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
+
 	if($visible){
 		$pusher->trigger('Channel_' . $config['channel_id'], 'show_twut', $response);
 	}else{

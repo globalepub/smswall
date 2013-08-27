@@ -45,7 +45,7 @@ $arrayPush['avatar'] = 'default_sms.png';
 $arrayPush['ctime'] = publicDate($ctime);
 $arrayPush['provider'] = $provider;
 
-$pusher = PusherInstance::get_pusher();
+$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
 $pusher->trigger('Channel_' . $config['channel_id'], 'new_twut', $arrayPush);
 
 ?>

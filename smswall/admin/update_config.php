@@ -33,7 +33,7 @@ if(!empty($up_hashtag)){
 		$q->execute(array( utf8_decode($up_hashtag), $up_channel ));
 
 		$arrayPush['hashtag'] = $up_hashtag;
-    	$pusher = PusherInstance::get_pusher();
+    	$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
     	$pusher->trigger('Channel_' . $up_channel, 'update_hashtag', $arrayPush);
 
 		$response['hashtag'] = utf8_encode($up_hashtag);
@@ -65,7 +65,7 @@ if(!empty($up_theme)){
 		$q->execute(array($up_theme));
 
 		$arrayPush['newtheme'] = $up_theme;
-		$pusher = PusherInstance::get_pusher();
+		$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
 		$pusher->trigger('Channel_' . $up_channel, 'update_theme', $arrayPush);
 
 		$response['theme'] = $up_theme;
@@ -84,7 +84,7 @@ if(!empty($up_avatar)){
 		$q->execute(array($toggleAvatar,$up_channel));
 
 		$arrayPush['avatar'] = 'refresh';
-    	$pusher = PusherInstance::get_pusher();
+    	$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
     	$pusher->trigger('Channel_' . $up_channel, 'update_avatar', $arrayPush);
 
 		$response['avatar'] = $up_avatar;
@@ -117,7 +117,7 @@ if(!empty($up_phone)){
 		$q->execute(array( utf8_decode($up_phone), $up_channel ));
 
 		$arrayPush['phone'] = $up_phone;
-    	$pusher = PusherInstance::get_pusher();
+    	$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
     	$pusher->trigger('Channel_' . $up_channel, 'update_phone', $arrayPush);
 
 		$response['phone'] = utf8_encode($up_phone);
