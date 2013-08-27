@@ -145,7 +145,7 @@ foreach ($statuses as $result) {
 
 if(count($statuses)==1) {
     echo "1 nouveau message";
-}else if(count($statuses)==1){
+}else if(count($statuses)>1){
     echo count($statuses) . " nouveaux messages";
 }else{
     echo "Pas de nouveau message";
