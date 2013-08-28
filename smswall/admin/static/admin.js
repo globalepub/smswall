@@ -313,7 +313,7 @@ $(document).ready(function() {
     });
     $("#morer").trigger('click');
 
-    /* Compteur de walls connectés au channel Pusher */
+    /* tooltip global */
     $("[data-toggle=tooltip]").tooltip();
 
 
