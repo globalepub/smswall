@@ -221,6 +221,8 @@ Menu - header
 	color: #555;
 	text-shadow: 0 -1px 1px #000, 1px 0 1px #555;
 	/*display: none;*/
+	min-width: 20px;
+	text-align: center;
 }
 #countscr #countmbr {
 	font-size: 24px;

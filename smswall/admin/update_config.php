@@ -36,7 +36,7 @@ if(!empty($up_hashtag)){
     	$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
     	$pusher->trigger('Channel_' . $up_channel, 'update_hashtag', $arrayPush);
 
-		$response['hashtag'] = utf8_encode($up_hashtag);
+		$response['hashtag'] = $up_hashtag;
 
 	} catch(PDOException $e) {
 		$response['error'] = $e->errorInfo();

@@ -1,7 +1,5 @@
 <?php
 require_once('../smswall.inc.php');
-
-$iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +29,16 @@ $iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 			$tagDisplay = "";
 			$userDisplay = "display: none;";
 		}
+		$configHash = utf8_encode($config['hashtag']);
+		$iscroped = (strlen($config['hashtag']) > 20) ? "..." : "";
 		?>
-		<div id="hashtag_btn" title="<?php echo $config['hashtag']; ?>" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" style="<?php echo $tagDisplay; ?>">
-			<i class="icon-search icon-white"></i> <?php echo substr(utf8_encode($config['hashtag']), 0, 20).$iscroped; ?>
+		<div id="hashtag_btn" title="<?php echo $configHash; ?>" class="btn btn-inverse" data-toggle="tooltip" data-placement="bottom" style="<?php echo $tagDisplay; ?>">
+			<i class="icon-search icon-white"></i> <?php echo substr($configHash, 0, 20).$iscroped; ?>
 		</div>
 
 	    <div id="hashtag_input" class="input-append hide">
 	    	<form id="hashFormMenu" class="form-inline">
-			    <input id="hashMenuInput" class="span3" type="text" value="<?php echo utf8_encode($config['hashtag']); ?>">
+			    <input id="hashMenuInput" class="span3" type="text" value="<?php echo $configHash; ?>">
 			    <button class="btn" type="submit">Enregistrer</button>
 			    <button class="btn cancel" type="button">X</button>
 			</form>

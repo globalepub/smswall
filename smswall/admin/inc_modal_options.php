@@ -34,7 +34,7 @@
         </div>
         <form id="hashForm" class="form-inline">
             <div class="input-append">
-                <input class="span3" id="hashtagForm" type="text" name="hashtagForm" value="<?php echo utf8_encode($config['hashtag']); ?>">
+                <input class="span3" id="hashtagForm" type="text" name="hashtagForm" value="<?php echo $configHash; ?>">
                 <button id="submitHash" class="btn" type="submit">Modifier</button>
             </div>
             <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>

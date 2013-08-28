@@ -362,17 +362,23 @@ $(document).ready(function() {
         $("#hashtag_btn, #hashtag_input").toggle();
     });
 
+    displayHash = function(hash){
+        var iscroped = (hash.length > 20) ? "..." : "";
+        var shorttag = hash.substring(0,20) + iscroped;
+        icon = $("<i>").addClass('icon-search icon-white');
+        $("#hashtag_btn").empty().append($(icon));
+        $("#hashtag_btn").append(" " + shorttag);
+        $("#hashtag_btn").attr("data-original-title", hash);
+        $("#hashMenuInput").val(hash);
+        $("#hashtagForm").val(hash);
+    }
+
     $("#hashFormMenu").submit(function(){
         // quasi doublon avec le form de la modale
         $.post("update_config.php",
             { hashtag: $("#hashMenuInput").val(), channel: $("#channelForm").val() },
             function(data){
-                var iscroped = (data.hashtag.length > 20) ? "..." : "";
-                var shorttag = data.hashtag.substring(0,20) + iscroped;
-                icon = $("<i>").addClass('icon-search icon-white');
-                $("#hashtag_btn").empty().append($(icon));
-                $("#hashtag_btn").append(" " + shorttag);
-                $("#hashtag_btn").attr("data-original-title", data.hashtag);
+                displayHash(data.hashtag);
                 $("#hashtag_btn, #hashtag_input").toggle();
             }, "json"
         );
@@ -389,6 +395,7 @@ $(document).ready(function() {
         $("#overlay").fadeIn("fast");
         $("#bulleOptions").show();
         $("#bulleViewer").hide();
+        $("#hashtagForm").val($("#hashMenuInput").val());
     }
 
     $("#closerOptions").click(function(){
@@ -424,13 +431,7 @@ $(document).ready(function() {
         $.post("update_config.php",
             { hashtag: $("#hashtagForm").val(), channel: $("#channelForm").val() },
             function(data){
-                var iscroped = (data.hashtag.length > 20) ? "..." : "";
-                var shorttag = data.hashtag.substring(0,20) + iscroped;
-                icon = $("<i>").addClass('icon-search icon-white');
-                $("#hashtag_btn").empty().append($(icon));
-                $("#hashtag_btn").append(" " + shorttag);
-                $("#hashtag_btn").attr("data-original-title", data.hashtag);
-
+                displayHash(data.hashtag);
                 $(".label-success", $("#hashForm")).show();
             }, "json"
         );
