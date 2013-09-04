@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from flask import Flask
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine, desc
 from sqlalchemy.engine.url import URL
@@ -16,6 +17,9 @@ from models import ConfigWall, Tweet, Base
 
 utc = pytz.utc
 tzone = pytz.timezone('Europe/Paris')
+
+app = Flask(__name__)
+app.debug = True
 
 engine = create_engine(URL(**DATABASE))
 Session = sessionmaker(bind=engine)
@@ -37,14 +41,14 @@ def start_grabber():
     s = SmsWallListener()
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_token_secret)
-    stream = Stream(auth, s, timeout=43200.0) # timeout: 12 heures
+    app.stream = Stream(auth, s, timeout=43200.0) # timeout: 12 heures
 
     if not get_config_param('userstream'):
         print "lancement du grabber. Hashtag en cours : %s" % previous_hash
-        stream.filter(track=[ previous_hash ], stall_warnings=True)
+        app.stream.filter(track=[ previous_hash ], stall_warnings=True)
     else:
         print "stream du compte Twitter associé à l'application WallFactory"
-        stream.userstream()
+        app.stream.userstream()
 
 
 def make_rich_links(txt, links, medias):
@@ -52,14 +56,15 @@ def make_rich_links(txt, links, medias):
     html = txt
     if links:
         for link in links:
-            r = re.compile(r"(%s)" % link['url'])
-            html = r.sub(r'<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">\1</a>', html)
-            html = html % (link['expanded_url'], link['type'], link['expanded_url'])
+            urlink = re.compile(r"(%s)" % link['url'])
+            tag = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>' % (link['expanded_url'], link['type'], link['expanded_url'], link['url'])
+            html = urlink.sub(tag,html)
     if medias:
         for media in medias:
-            r = re.compile(r"(%s)" % media['url'])
-            html = r.sub(r'<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">\1</a>', html)
-            html = html % (media['media_url'], media['type'], media['media_url'])
+            urlmedia = re.compile(r"(%s)" % media['url'])
+            tag = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>' % (media['media_url'], media['type'], media['media_url'], media['url'])
+            html = urlmedia.sub(tag,html)
+
     return html
 
 
@@ -105,7 +110,9 @@ class SmsWallListener(StreamListener):
         if current_hash != previous_hash:
             previous_hash = current_hash
             app.stream.disconnect()
+            # stream.disconnect()
             del(app.stream)
+            # del(stream)
             start_grabber()
 
         data = json.loads(data)
