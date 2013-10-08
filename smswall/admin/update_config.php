@@ -2,13 +2,14 @@
 require_once('../smswall.inc.php');
 require('../libs/Pusher.php');
 
-$up_hashtag = (!empty($_POST['hashtag'])) ? $_POST['hashtag'] : "";
-$up_userstream = (!empty($_POST['userstream'])) ? $_POST['userstream'] : "";
-$up_modo_type = (!empty($_POST['modo_type'])) ? $_POST['modo_type'] : "";
-$up_avatar = (!empty($_POST['avatar'])) ? $_POST['avatar'] : "";
-$up_theme = (!empty($_POST['theme'])) ? $_POST['theme'] : "";
 $up_channel = (!empty($_POST['channel'])) ? $_POST['channel'] : "";
+$up_userstream = (!empty($_POST['userstream'])) ? $_POST['userstream'] : "";
+$up_hashtag = (!empty($_POST['hashtag'])) ? $_POST['hashtag'] : "";
+$up_modo_type = (!empty($_POST['modo_type'])) ? $_POST['modo_type'] : "";
 $up_retweet = (!empty($_POST['retweet'])) ? $_POST['retweet'] : "";
+$up_avatar = (!empty($_POST['avatar'])) ? $_POST['avatar'] : "";
+$up_bulle = (!empty($_POST['bulle'])) ? $_POST['bulle'] : "";
+$up_theme = (!empty($_POST['theme'])) ? $_POST['theme'] : "";
 $up_phone = (!empty($_POST['phone'])) ? $_POST['phone'] : "";
 
 // Choix du type de stream
@@ -57,18 +58,15 @@ if(!empty($up_modo_type)){
 	}
 }
 
-// Changement de thème
-if(!empty($up_theme)){
+// Afficher / Masquer les RTs
+if(!empty($up_retweet)){
 	try {
-		$sql = "UPDATE config_wall SET theme = ? WHERE id = 1;";
+		$toggleRetweet = ($up_retweet == 'show') ? '1' : '0';
+		$sql = "UPDATE config_wall SET retweet = ? WHERE channel_id = ?;";
 		$q = $db->prepare($sql);
-		$q->execute(array($up_theme));
+		$q->execute(array($toggleRetweet,$up_channel));
 
-		$arrayPush['newtheme'] = $up_theme;
-		$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
-		$pusher->trigger('Channel_' . $up_channel, 'update_theme', $arrayPush);
-
-		$response['theme'] = $up_theme;
+		$response['retweet'] = $up_retweet;
 
 	} catch(PDOException $e) {
 		$response['error'] = $e->errorInfo();
@@ -94,20 +92,43 @@ if(!empty($up_avatar)){
 	}
 }
 
-// Afficher / Masquer les RTs
-if(!empty($up_retweet)){
+// Durée d'affichage des bulles
+if(!empty($up_bulle)){
 	try {
-		$toggleRetweet = ($up_retweet == 'show') ? '1' : '0';
-		$sql = "UPDATE config_wall SET retweet = ? WHERE channel_id = ?;";
+		$bulle = ($up_bulle == 'infini') ? '0' : intval($up_bulle);
+		$sql = "UPDATE config_wall SET bulle = ? WHERE channel_id = ?;";
 		$q = $db->prepare($sql);
-		$q->execute(array($toggleRetweet,$up_channel));
+		$q->execute(array( $bulle, $up_channel ));
 
-		$response['retweet'] = $up_retweet;
+		//$arrayPush['bulle'] = $up_bulle;
+    	//$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
+    	//$pusher->trigger('Channel_' . $up_channel, 'update_phone', $arrayPush);
+
+		$response['bulle'] = $up_bulle;
 
 	} catch(PDOException $e) {
 		$response['error'] = $e->errorInfo();
 	}
 }
+
+// Changement de thème
+if(!empty($up_theme)){
+	try {
+		$sql = "UPDATE config_wall SET theme = ? WHERE id = 1;";
+		$q = $db->prepare($sql);
+		$q->execute(array($up_theme));
+
+		$arrayPush['newtheme'] = $up_theme;
+		$pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
+		$pusher->trigger('Channel_' . $up_channel, 'update_theme', $arrayPush);
+
+		$response['theme'] = $up_theme;
+
+	} catch(PDOException $e) {
+		$response['error'] = $e->errorInfo();
+	}
+}
+
 
 // Update du n° phone
 if(!empty($up_phone)){

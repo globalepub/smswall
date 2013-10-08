@@ -17,7 +17,7 @@ session = Session()
 m = time.time()
 uniqid = '%8x%05x' %(math.floor(m),(m-math.floor(m))*1000000)
 
-config_wall = ConfigWall(uniqid, 1, '#rennes', 0, '0606060606', 'default', 0, 1, 1, datetime.utcnow())
+config_wall = ConfigWall(uniqid, 1, '#rennes', 0, '0606060606', 'default', 6, 1, 1, datetime.utcnow())
 
 session.add(config_wall)
 session.commit()

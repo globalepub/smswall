@@ -116,12 +116,11 @@ if(empty($results->errors)){
         $ctime = date('Y-m-d H:i:s', strtotime($result->created_at));
         $ctime_db = date('Y-m-d H:i:s', strtotime($result->created_at) - date("Z"));
         $visible = $config['modo_type'];
-        $bulle = $config['bulle'];
 
         try{
             $db->beginTransaction();
-            $q = $db->prepare('INSERT INTO messages (provider,ref_id,author,message,message_html,avatar,links,medias,ctime,visible,bulle) VALUES(?,?,?,?,?,?,?,?,?,?,?)');
-            $q->execute(array($provider,$ref_id,$author,$message,$message_html,$avatar,$links,$medias,$ctime_db,$visible,$bulle));
+            $q = $db->prepare('INSERT INTO messages (provider,ref_id,author,message,message_html,avatar,links,medias,ctime,visible) VALUES(?,?,?,?,?,?,?,?,?,?)');
+            $q->execute(array($provider,$ref_id,$author,$message,$message_html,$avatar,$links,$medias,$ctime_db,$visible));
             $lastId = $db->lastInsertId();
             $db->commit();
         }catch(PDOException $e){

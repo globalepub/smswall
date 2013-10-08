@@ -49,9 +49,8 @@ class Tweet(Base):
     medias = Column(Text)
     ctime = Column(DateTime)
     visible = Column(Integer)
-    bulle = Column(Integer)
 
-    def __init__(self, provider='TWITTER', ref_id=None, author=None, message=None, message_html=None, avatar=None, links=None, medias=None, ctime=None, visible=None, bulle=None):
+    def __init__(self, provider='TWITTER', ref_id=None, author=None, message=None, message_html=None, avatar=None, links=None, medias=None, ctime=None, visible=None):
 
         self.provider = provider
         self.ref_id = ref_id
@@ -63,7 +62,6 @@ class Tweet(Base):
         self.medias = json.dumps(medias)
         self.ctime = ctime
         self.visible = visible
-        self.bulle = bulle
 
     def __repr__(self):
         return '<Tweet %s>' % self.ref_id

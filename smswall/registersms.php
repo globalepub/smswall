@@ -22,12 +22,11 @@ $message = strip_tags(utf8_decode($content));
 $ctime = date('Y-m-d H:i:s', time());
 $ctime_db = date('Y-m-d H:i:s', time() - date("Z"));
 $visible = $config['modo_type'];
-$bulle = $config['bulle'];
 
 try{
     $db->beginTransaction();
-    $q = $db->prepare('INSERT INTO messages (provider,author,message,ctime,visible,bulle) VALUES(?,?,?,?,?,?)');
-    $q->execute(array($provider,$author,$message,$ctime_db,$visible,$bulle));
+    $q = $db->prepare('INSERT INTO messages (provider,author,message,ctime,visible) VALUES(?,?,?,?,?)');
+    $q->execute(array($provider,$author,$message,$ctime_db,$visible));
     $lastId = $db->lastInsertId();
     $db->commit();
 }catch(PDOException $e){

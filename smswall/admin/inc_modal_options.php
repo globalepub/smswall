@@ -80,7 +80,7 @@
     </form>
 
 
-    <div class="title">Affichage avatars :</div>
+    <div class="title">Affichage des avatars :</div>
     <form id="avatarForm" action="update_config.php" method="post">
         <?php
         $masquerState = $afficherState = '';
@@ -94,6 +94,32 @@
             <button type="button" value="hide" class="btn btn-small <?php echo $masquerState; ?>">Masquer</button>
             <button type="button" value="show" class="btn btn-small <?php echo $afficherState; ?>">Afficher</button>
         </div>
+        <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
+    </form>
+
+    <div class="title">Affichage des bulles</div>
+    <div class="subTitle">
+        Durée d'affichage en seconde (0 = illimitée, fermeture manuelle)
+    </div>
+    <form id="bulleForm" action="update_config.php" method="post" autocomplete="off">
+        <?php
+        $b = intval( $config['bulle'] );
+        $selstr = 'selected="selected"';
+        ?>
+        <select id="dureeBulleForm" name="dureeBulleForm" class="span3">
+            <option value="2" <?php echo ($b == 2) ? $selstr : ""; ?>>2 secondes</option>
+            <option value="4" <?php echo ($b == 4) ? $selstr : ""; ?>>4 secondes</option>
+            <option value="6" <?php echo ($b == 6) ? $selstr : ""; ?>>6 secondes</option>
+            <option value="8" <?php echo ($b == 8) ? $selstr : ""; ?>>8 secondes</option>
+            <option value="10" <?php echo ($b == 10) ? $selstr : ""; ?>>10 secondes</option>
+            <option value="15" <?php echo ($b == 15) ? $selstr : ""; ?>>15 secondes</option>
+            <option value="20" <?php echo ($b == 20) ? $selstr : ""; ?>>20 secondes</option>
+            <option value="25" <?php echo ($b == 25) ? $selstr : ""; ?>>25 secondes</option>
+            <option value="30" <?php echo ($b == 30) ? $selstr : ""; ?>>30 secondes</option>
+            <option value="45" <?php echo ($b == 45) ? $selstr : ""; ?>>45 secondes</option>
+            <option value="60" <?php echo ($b == 60) ? $selstr : ""; ?>>1 minute</option>
+            <option value="infini" <?php echo ($b == 0) ? $selstr : ""; ?>>Illimité</option>
+        </select>
         <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
     </form>
 
@@ -127,16 +153,18 @@
     </form>
 
     <div class="title">SMS</div>
-        <div class="subTitle">
-            N° de téléphone pour les SMS
-        </div>
-        <form id="phoneForm" action="update_config.php" method="post">
-            <div class="input-append">
-                <input class="span2" id="numberForm" type="text" name="numberForm" value="<?php echo $config['phone_number']; ?>">
-                <button id="submitPhone" class="btn" type="submit">Modifier</button>
-            </div>
-            <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
-        </form>
+    <div class="subTitle">
+        N° de téléphone pour les SMS
     </div>
+    <form id="phoneForm" action="update_config.php" method="post">
+        <div class="input-append">
+            <input class="span2" id="numberForm" type="text" name="numberForm" value="<?php echo $config['phone_number']; ?>">
+            <button id="submitPhone" class="btn" type="submit">Modifier</button>
+        </div>
+        <span class="label label-success hide"><i class="icon-ok icon-white"></i></span>
+    </form>
+
+
+    <!-- </div> -->
 
 </div>

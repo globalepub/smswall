@@ -16,7 +16,7 @@ try {
         userstream BOOL,
         phone_number VARCHAR(16),
         theme VARCHAR(20),
-        bulle BOOL,
+        bulle INT DEFAULT 6,
         avatar BOOL,
         retweet BOOL,
         ctime timestamp,
@@ -37,7 +37,6 @@ try {
         medias TEXT,
         ctime datetime,
         visible BOOL,
-        bulle INT DEFAULT 0,
         PRIMARY KEY (id),
         UNIQUE KEY id (id)
     ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
@@ -56,7 +55,7 @@ try{
     $con = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
     $con->beginTransaction();
     $qry = $con->prepare('INSERT INTO config_wall (channel_id, modo_type, hashtag, userstream, phone_number, theme, bulle, avatar, retweet, ctime, mtime) VALUES(?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)');
-    $qry->execute(array(uniqid(), 1, '#rennes', 0, '0606060606', 'default', 0, 1, 1 ));
+    $qry->execute(array(uniqid(), 1, '#rennes', 0, '0606060606', 'default', 6, 1, 1 ));
     $con->commit();
 
     echo "Configuration: OK";

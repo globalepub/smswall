@@ -1,6 +1,4 @@
 
-//var config = <?php echo json_encode($config); ?>;
-
 // Enable pusher logging - don't include this in production
 Pusher.log = function(message) {
     if (window.console && window.console.log) window.console.log(message);
@@ -30,7 +28,7 @@ channel.bind('new_twut', function(data) {
 });
 
 channel.bind('hide_twut', function(data){
-     $("#t"+data.id).slideUp(300);
+    $("#t"+data.id).slideUp(300);
 });
 
 channel.bind('show_twut', function(data){
@@ -73,10 +71,20 @@ addTwut = function(data,age){
     return false;
 }
 
+var bubbleTime;
+
 privatechannel.bind('client-open-bubble', function(data){
     $("#overlayMedia").fadeOut(1000, function(){
         $("#bulleMedia").empty().removeAttr('style');
     });
+
+    if(typeof bubbleTime == "number") {
+        window.clearTimeout(bubbleTime);
+        delete bubbleTime;
+        $("#overlayMsg").hide();
+        $("#bulleMsg").empty().removeAttr('style');
+    }
+
     // passage en hidden pour pouvoir récupérer les hauteurs en pixels
     $("#overlayMsg").css({'visibility':'hidden','display':'block'});
     $("#bulleMsg").show();
@@ -97,13 +105,46 @@ privatechannel.bind('client-open-bubble', function(data){
     $("#bulleMsg").css({'left': decalX, 'top': decalY});
 
     $("#overlayMsg").css({'visibility':'visible','display':'none'});
+
+    // Durée d'affichage de la bulle:
+    // 0 = illimité, fermeture manuelle
     $("#overlayMsg").fadeIn(500,function(){
         $("#splash").slideDown(400);
-    }).delay(4000).fadeOut(500,function(){
-        $("#bulleMsg").empty().removeAttr('style');
     });
 
+    if(data.dureeBulle > 0){
+        var duree = data.dureeBulle * 1000;
+        bubbleTime = setTimeout(function(){
+            close_bubble();
+        }, duree );
+    }
+
+
+    /*
+    if(data.dureeBulle > 0){
+        var duree = data.dureeBulle * 1000;
+        $("#overlayMsg").fadeIn(500,function(){
+            $("#splash").slideDown(400);
+        }).delay( duree ).fadeOut(500,function(){
+            $("#bulleMsg").empty().removeAttr('style');
+        });
+    }else{
+        $("#overlayMsg").fadeIn(500,function(){
+            $("#splash").slideDown(400);
+        });
+    }
+    */
 });
+
+privatechannel.bind('client-close-bubble', function(data){
+    close_bubble();
+});
+
+close_bubble = function(){
+    $("#overlayMsg").fadeOut(500,function(){
+        $("#bulleMsg").empty().removeAttr('style');
+    });
+}
 
 privatechannel.bind('client-open-splash', function(data){
     $("#bulleMsg").hide();

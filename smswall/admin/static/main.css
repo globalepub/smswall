@@ -85,8 +85,6 @@ a:hover { color: #222222; }
 	}
 
 #bulleViewer {
-	/*position: fixed;
-	margin: 64px 10% 0;*/
 	margin: 64px 25% 0;
     max-width: 50%;
     position: fixed;
@@ -220,7 +218,6 @@ Menu - header
 	margin-right: 12px;
 	color: #555;
 	text-shadow: 0 -1px 1px #000, 1px 0 1px #555;
-	/*display: none;*/
 	min-width: 20px;
 	text-align: center;
 }
@@ -253,14 +250,10 @@ Menu - header
 		color: #C9C9C9;
 		font-weight: bold;
 	}
-	#messageModo form input, #messageModo form textarea {
-		/*width: 100%;*/
-	}
 
 #containerMsg{
 	position: relative;
 	width: 100%;
-	/*left: -40px;*/
 	list-style-type: none;
 	margin: 0;
 	top: 48px;
@@ -279,7 +272,6 @@ Menu - header
 }
 
 .msgOK, .msgNew {
-	/*background: #f0eac8 url(../media/bg_msg_grad_ok.png) repeat-x top left;*/
 	border-top: 1px solid #FFFFFF;
 	border-bottom: 1px solid #BBBBBB;
 }
@@ -370,8 +362,6 @@ Menu - header
 }
 
 
-
-
 .bulOff{
 	background: transparent url(../../media/bulle_toggle.png) no-repeat 0 0;
 	width: 24px;
@@ -383,6 +373,10 @@ Menu - header
 .bulOff:hover {
 	background: transparent url(../../media/bulle_toggle.png) no-repeat 0 -20px;
 	text-decoration: none;
+}
+
+.bulOn {
+	background: transparent url(../../media/bulle_toggle.png) no-repeat 0 -20px;
 }
 
 .mediaicon{

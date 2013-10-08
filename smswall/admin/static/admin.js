@@ -64,6 +64,7 @@ addTwut = function(data,age){
 
     // BULLE
     $('.bulOff', '#t'+data.id).bind('click', function() { openBubble(data) } );
+    // $('.bulOn', '#t'+data.id).bind('click', function() { closeBubble(data) } );
 
     $('.mediaicon', '#t'+data.id).bind('click', function(event) {
         event.preventDefault();
@@ -263,9 +264,44 @@ render_viewer = function(type, htmlembed, viewSrc){
     });
 }
 
+var bubbleTime;
+var previousData;
 
 openBubble = function(data){
+
+    if(typeof bubbleTime == "number") {
+        window.clearTimeout(bubbleTime);
+        delete bubbleTime;
+    }
+
+    data.dureeBulle = parseInt(config.bulle);
+    // ajout d'une seconde :
+    // prise en compte des effets côté wall public
+    // fadeIn 500ms + fadeOut 500ms
+    var dureeEffect = ( data.dureeBulle + 1 ) * 1000;
+
+    $(".bulOff").removeClass('bulOn');
+
+    $(".bulOff", "#t"+data.id).addClass('bulOn');
+    $(".bulOff", "#t"+data.id).unbind("click");
+    $('.bulOff', '#t'+data.id).bind('click', function() { closeBubble(data) } );
+
+    if(data.dureeBulle > 0){
+        bubbleTime = setTimeout(function(){
+            closeBubble(data)
+        }, dureeEffect );
+    }
+
     privatechannel.trigger('client-open-bubble', data);
+}
+
+closeBubble = function(data){
+    // $(".bulOff", "#t"+data.id).show();
+    // $(".bulOn", "#t"+data.id).hide();
+    $(".bulOff", "#t"+data.id).unbind("click");
+    $(".bulOff", "#t"+data.id).removeClass('bulOn');
+    $('.bulOff', '#t'+data.id).bind('click', function() { openBubble(data) } );
+    privatechannel.trigger('client-close-bubble', data);
 }
 
 hide = function(id){ $.post("update_vis.php", { id: id, oldvis: 1 }); }
@@ -281,11 +317,12 @@ channel.bind('show_twut', function(data){
     $("#t"+data.id).removeClass('msgNO').addClass('msgOK');
 });
 
+/*
 channel.bind('show_bubble', function(data){
     $("#closerSplash").html('Fermer la bulle');
     $("#closerSplash").fadeIn(500).delay(4000).fadeOut(500);
 });
-
+*/
 
 $("#closerSplash").bind('click', function(){
     $(this).hide();
@@ -404,6 +441,9 @@ $(document).ready(function() {
         $("#bulleOptions").hide();
     });
 
+    // Type de stream :
+    //  - search via l'API Twitter sur hashtag, mots clés
+    //  - wall du compte utilisé pour la connection à l'API Twitter
     $("button", $("#userstream")).click(function(){
         $.post("update_config.php",
             { userstream: $(this).val(), channel: $("#channelForm").val() },
@@ -426,6 +466,7 @@ $(document).ready(function() {
         return false;
     });
 
+    // Hashtags, mots clés
     $("#hashForm").submit(function(){
         $(".label-success", $(this)).hide();
         $.post("update_config.php",
@@ -438,6 +479,7 @@ $(document).ready(function() {
         return false;
     });
 
+    // Type de modération : à priori vs à posteriori
     $("button", $("#modo")).click(function(){
         //$(".label-success", $(this)).hide();
         $.post("update_config.php",
@@ -456,24 +498,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $("button", $("#avatar")).click(function(){
-        //$(".label-success", $(this)).hide();
-        $.post("update_config.php",
-            { avatar: $(this).val(), channel: config.channel_id },
-            function(data){
-                //$(".label-success", $("#modoForm")).show();
-                if(data.avatar == 'hide'){
-                    $("[value=hide]", "#avatar").addClass('active btn-danger');
-                    $("[value=show]", "#avatar").removeClass('active btn-success');
-                }else{
-                    $("[value=hide]", "#avatar").removeClass('active btn-danger');
-                    $("[value=show]", "#avatar").addClass('active btn-success');
-                }
-            }, "json"
-        );
-        return false;
-    });
-
+    // Retweets : Masquage optionnel des retweets
     $("button", $("#retweet")).click(function(){
         //$(".label-success", $(this)).hide();
         $.post("update_config.php",
@@ -492,6 +517,40 @@ $(document).ready(function() {
         return false;
     });
 
+    // Avatar : Masquage optionnel des avatars
+    $("button", $("#avatar")).click(function(){
+        //$(".label-success", $(this)).hide();
+        $.post("update_config.php",
+            { avatar: $(this).val(), channel: config.channel_id },
+            function(data){
+                //$(".label-success", $("#modoForm")).show();
+                if(data.avatar == 'hide'){
+                    $("[value=hide]", "#avatar").addClass('active btn-danger');
+                    $("[value=show]", "#avatar").removeClass('active btn-success');
+                }else{
+                    $("[value=hide]", "#avatar").removeClass('active btn-danger');
+                    $("[value=show]", "#avatar").addClass('active btn-success');
+                }
+            }, "json"
+        );
+        return false;
+    });
+
+    // Bulle : Durée d'affichage des bulles
+    $("#dureeBulleForm").change(function(){
+        $(".label-success", $("#bulleForm")).hide();
+        $.post("update_config.php",
+            { bulle: $("#dureeBulleForm").val(), channel: $("#channelForm").val() },
+            function(data){
+                config.bulle = (data.bulle == "infini") ? 0 : data.bulle;
+                $(".label-success", $("#bulleForm")).show();
+            }, "json"
+         );
+        return false;
+    });
+
+
+    // Thème : Thème graphique du wall public
     $("#theme").change(function(){
         $(".label-success", $("#themeForm")).hide();
         $.post("update_config.php",
@@ -503,6 +562,7 @@ $(document).ready(function() {
         return false;
     });
 
+    // SMS : Numéro de téléphone pour la réception des SMS et l'affichage dans le thème graphique
     $("#phoneForm").submit(function(){
         $.post("update_config.php",
             { phone: $("#numberForm").val(), channel: $("#channelForm").val() },

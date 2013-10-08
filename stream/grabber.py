@@ -138,7 +138,7 @@ class SmsWallListener(StreamListener):
                 # Enregistrement du Tweet
                 new_tweet = Tweet('TWITTER', data['id_str'], data['user']['screen_name'], data['text'], message_html,
                             data['user']['profile_image_url'], links, medias, ca_origin,
-                            get_config_param('modo_type'), 0 )
+                            get_config_param('modo_type') )
 
                 session.add(new_tweet)
                 session.commit()
