@@ -43,6 +43,7 @@ $query = array(
   "q" => tagSplitter( $config['hashtag'] ),
   "result_type" => "recent",
   "since_id" => $last_ref_id,
+  "count" => 30,
 );
 
 $results = search($query);
@@ -53,95 +54,102 @@ if(empty($results->errors)){
     usort($statuses,'sortStatusesById');
 
     foreach ($statuses as $result) {
+        // Filtrage des RT
+        $rt_status = (!empty($result->retweeted_status)) ? true : false;
 
-        $links = "";
-        $medias = "";
-        if(!empty($result->entities)){
-            foreach ($result->entities as $k => $v) {
-                if($k == "urls" && !empty($v)){
-                    $links = array();
-                    foreach($v as $url){
-                        $link = array();
-                        $link['type'] = 'link';
-                        $link['url'] = $url->url;
-                        $link['expanded_url'] = $url->expanded_url;
-                        $links[] = $link;
-                    }
-                }
-                if($k == "media" && !empty($v)){
-                    $medias = array();
-                    foreach($v as $med){
-                        $media = array();
-                        $media['type'] = $med->type;
-                        $media['url'] = $med->url;
-                        $media['media_url'] = $med->media_url;
-                        if(isset($med->sizes->thumb)){
-                            $media['thumb_size'] = 'thumb';
-                        }else if(isset($med->sizes->small)){
-                            $media['thumb_size'] = 'small';
-                        }else if(isset($med->sizes->medium)){
-                            $media['thumb_size'] = 'medium';
+        if($config['retweet'] || (!$config['retweet'] && !$rt_status)){
+
+            $links = "";
+            $medias = "";
+            if(!empty($result->entities)){
+                foreach ($result->entities as $k => $v) {
+                    if($k == "urls" && !empty($v)){
+                        $links = array();
+                        foreach($v as $url){
+                            $link = array();
+                            $link['type'] = 'link';
+                            $link['url'] = $url->url;
+                            $link['expanded_url'] = $url->expanded_url;
+                            $links[] = $link;
                         }
-                        $medias[] = $media;
+                    }
+                    if($k == "media" && !empty($v)){
+                        $medias = array();
+                        foreach($v as $med){
+                            $media = array();
+                            $media['type'] = $med->type;
+                            $media['url'] = $med->url;
+                            $media['media_url'] = $med->media_url;
+                            if(isset($med->sizes->thumb)){
+                                $media['thumb_size'] = 'thumb';
+                            }else if(isset($med->sizes->small)){
+                                $media['thumb_size'] = 'small';
+                            }else if(isset($med->sizes->medium)){
+                                $media['thumb_size'] = 'medium';
+                            }
+                            $medias[] = $media;
+                        }
                     }
                 }
             }
-        }
 
-        // htmlisation du message
-        $message_html = utf8_decode($result->text);
-        if(!empty($links)){
-            foreach($links as $link){
-                $html_link = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
-                $link_formated = sprintf($html_link, $link['expanded_url'], $link['type'], $link['expanded_url'], $link['url']);
-                $message_html = str_replace($link['url'], $link_formated, $message_html);
+            // htmlisation du message
+            $message_html = utf8_decode($result->text);
+            if(!empty($links)){
+                foreach($links as $link){
+                    $html_link = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
+                    $link_formated = sprintf($html_link, $link['expanded_url'], $link['type'], $link['expanded_url'], $link['url']);
+                    $message_html = str_replace($link['url'], $link_formated, $message_html);
+                }
             }
-        }
-        if(!empty($medias)){
-            foreach($medias as $media){
-                $html_media = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
-                $media_formated = sprintf($html_media, $media['media_url'], $media['type'], $media['media_url'], $media['url']);
-                $message_html = str_replace($media['url'], $media_formated, $message_html);
+            if(!empty($medias)){
+                foreach($medias as $media){
+                    $html_media = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
+                    $media_formated = sprintf($html_media, $media['media_url'], $media['type'], $media['media_url'], $media['url']);
+                    $message_html = str_replace($media['url'], $media_formated, $message_html);
+                }
             }
-        }
 
-        $provider = 'TWITTER';
-        $ref_id = $result->id_str;
-        $author = $result->user->screen_name;
-        $message = utf8_decode($result->text);
-        $message_html = $message_html;
-        $avatar = $result->user->profile_image_url;
-        $links = (!empty($links)) ? json_encode($links) : "";
-        $medias = json_encode($medias);
-        $ctime = date('Y-m-d H:i:s', strtotime($result->created_at));
-        $ctime_db = date('Y-m-d H:i:s', strtotime($result->created_at) - date("Z"));
-        $visible = $config['modo_type'];
+            $provider = 'TWITTER';
+            $ref_id = $result->id_str;
+            $author = $result->user->screen_name;
+            $message = utf8_decode($result->text);
+            $message_html = $message_html;
+            $avatar = $result->user->profile_image_url;
+            $links = (!empty($links)) ? json_encode($links) : "";
+            $medias = json_encode($medias);
+            $ctime = date('Y-m-d H:i:s', strtotime($result->created_at));
+            $ctime_db = date('Y-m-d H:i:s', strtotime($result->created_at) - date("Z"));
+            $visible = $config['modo_type'];
 
-        try{
-            $db->beginTransaction();
-            $q = $db->prepare('INSERT INTO messages (provider,ref_id,author,message,message_html,avatar,links,medias,ctime,visible) VALUES(?,?,?,?,?,?,?,?,?,?)');
-            $q->execute(array($provider,$ref_id,$author,$message,$message_html,$avatar,$links,$medias,$ctime_db,$visible));
-            $lastId = $db->lastInsertId();
-            $db->commit();
-        }catch(PDOException $e){
-            echo "DB Error : " . $e->errorInfo();
-        }
+            try{
+                $db->beginTransaction();
+                $q = $db->prepare('INSERT INTO messages (provider,ref_id,author,message,message_html,avatar,links,medias,ctime,visible) VALUES(?,?,?,?,?,?,?,?,?,?)');
+                $q->execute(array($provider,$ref_id,$author,$message,$message_html,$avatar,$links,$medias,$ctime_db,$visible));
+                $lastId = $db->lastInsertId();
+                $db->commit();
+            }catch(PDOException $e){
+                echo "DB Error : " . $e->errorInfo();
+            }
 
-        $arrayPush = array();
-        $arrayPush['id'] = $lastId;
-        $arrayPush['provider'] = $provider;
-        $arrayPush['t_id'] = $ref_id;
-        $arrayPush['message'] = utf8_encode($message);
-        $arrayPush['message_html'] = utf8_encode($message_html);
-        $arrayPush['visible'] = $visible;
-        $arrayPush['author'] = $author;
-        $arrayPush['avatar'] = $avatar;
-        $arrayPush['links'] = $links;
-        $arrayPush['medias'] = $medias;
-        $arrayPush['ctime'] = $ctime;
+            $arrayPush = array();
+            $arrayPush['id'] = $lastId;
+            $arrayPush['provider'] = $provider;
+            $arrayPush['t_id'] = $ref_id;
+            $arrayPush['message'] = utf8_encode($message);
+            $arrayPush['message_html'] = utf8_encode($message_html);
+            $arrayPush['visible'] = $visible;
+            $arrayPush['author'] = $author;
+            $arrayPush['avatar'] = $avatar;
+            $arrayPush['links'] = $links;
+            $arrayPush['medias'] = $medias;
+            $arrayPush['ctime'] = $ctime;
+            $arrayPush['retweeted_status'] = $rt_status;
 
-        $pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
-        $pusher->trigger('Channel_' . $config['channel_id'], 'new_twut', $arrayPush);
+            $pusher = new Pusher( PUSHER_KEY, PUSHER_SECRET, PUSHER_APPID );
+            $pusher->trigger('Channel_' . $config['channel_id'], 'new_twut', $arrayPush);
+
+        } // endif retweet
 
     }
     ?>
