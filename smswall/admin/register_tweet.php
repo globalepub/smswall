@@ -29,9 +29,9 @@ function tagSplitter($tagstr) {
     return $paramstr;
 }
 
-function search(array $query){
+function search(array $query, $resource_url){
     $toa = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-    return $toa->get('search/tweets', $query);
+    return $toa->get($resource_url, $query);
 }
 
 $last_result = $db->query("SELECT * FROM messages WHERE provider = 'TWITTER' ORDER BY ref_id DESC LIMIT 0,1");
@@ -39,18 +39,29 @@ $last = $last_result->fetch(PDO::FETCH_ASSOC);
 
 $last_ref_id = ($last['ref_id']) ? $last['ref_id'] : '';
 
+
+// Construction de l'url et des paramètres de la requête
+
 $query = array(
-  "q" => tagSplitter( $config['hashtag'] ),
-  "result_type" => "recent",
-  "since_id" => $last_ref_id,
-  "count" => 30,
+    "since_id" => $last_ref_id,
+    "count" => 30,
 );
 
-$results = search($query);
+if($config['userstream']){
+    $resource_url = 'statuses/home_timeline';
+}else{
+    $resource_url = 'search/tweets';
+    $query["q"] = tagSplitter( $config['hashtag'] );
+    $query["result_type"] = "recent";
+}
+
+$results = search($query, $resource_url);
+
+// Traitement du résultat
 
 if(empty($results->errors)){
 
-    $statuses = $results->statuses;
+    $statuses = ($config['userstream']) ? $results : $results->statuses;
     usort($statuses,'sortStatusesById');
 
     foreach ($statuses as $result) {
