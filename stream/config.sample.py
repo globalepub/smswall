@@ -10,7 +10,8 @@ DATABASE = {
     'password': 'k4m0ul0x',
     'database': 'smswall',
     'query': {
-    	'charset': 'utf8'
+    	'charset': 'utf8',
+        'use_unicode': 1
     }
 }
 

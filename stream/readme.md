@@ -61,7 +61,7 @@ Dans un terminal, lancez un shell mysql :
 
     root@localhost:~# mysql -u root -ppassword
 
-    mysql> CREATE DATABASE smswall;
+    mysql> CREATE DATABASE IF NOT EXISTS `smswall` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 Création du user wally :
 

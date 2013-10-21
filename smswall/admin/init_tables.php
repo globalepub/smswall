@@ -6,8 +6,9 @@ require('../conf.inc.php');
  */
 
 try {
-    $con = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-
+    $con = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    // PHP < 5.3.6
+    $con->exec("set names utf8");
     $con->exec("CREATE TABLE IF NOT EXISTS config_wall (
         id INT(11) NOT NULL AUTO_INCREMENT,
         channel_id VARCHAR(50),
@@ -23,7 +24,7 @@ try {
         mtime timestamp,
         PRIMARY KEY (id),
         UNIQUE KEY id (id)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
     CREATE TABLE IF NOT EXISTS messages (
         id INT(11) NOT NULL AUTO_INCREMENT,
@@ -39,7 +40,7 @@ try {
         visible BOOL,
         PRIMARY KEY (id),
         UNIQUE KEY id (id)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
     echo "Tables: OK<br/>";
 
@@ -52,7 +53,9 @@ try {
  */
 
 try{
-    $con = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $con = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    // PHP < 5.3.6
+    $con->exec("set names utf8");
     $con->beginTransaction();
     $qry = $con->prepare('INSERT INTO config_wall (channel_id, modo_type, hashtag, userstream, phone_number, theme, bulle, avatar, retweet, ctime, mtime) VALUES(?,?,?,?,?,?,?,?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP)');
     $qry->execute(array(uniqid(), 1, '#rennes', 0, '0606060606', 'default', 6, 1, 1 ));

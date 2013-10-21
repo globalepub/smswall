@@ -11,6 +11,7 @@ require_once('../smswall.inc.php');
 include('../func.php');
 require_once '../libs/twitteroauth.php';
 require('../libs/Pusher.php');
+include('../libs/ForceUTF8/Encoding.php');
 
 date_default_timezone_set('Europe/Paris');
 
@@ -105,7 +106,8 @@ if(empty($results->errors)){
             }
 
             // htmlisation du message
-            $message_html = utf8_decode($result->text);
+            $message_html = \ForceUTF8\Encoding::toUTF8($result->text);
+
             if(!empty($links)){
                 foreach($links as $link){
                     $html_link = '<a href="%s" rel="nofollow" target="_blank" data-type="%s" data-toggle="tooltip" title="%s">%s</a>';
@@ -124,7 +126,7 @@ if(empty($results->errors)){
             $provider = 'TWITTER';
             $ref_id = $result->id_str;
             $author = $result->user->screen_name;
-            $message = utf8_decode($result->text);
+            $message = \ForceUTF8\Encoding::toUTF8($result->text);
             $message_html = $message_html;
             $avatar = $result->user->profile_image_url;
             $links = (!empty($links)) ? json_encode($links) : "";
@@ -147,8 +149,8 @@ if(empty($results->errors)){
             $arrayPush['id'] = $lastId;
             $arrayPush['provider'] = $provider;
             $arrayPush['t_id'] = $ref_id;
-            $arrayPush['message'] = utf8_encode($message);
-            $arrayPush['message_html'] = utf8_encode($message_html);
+            $arrayPush['message'] = $message;
+            $arrayPush['message_html'] = $message_html;
             $arrayPush['visible'] = $visible;
             $arrayPush['author'] = $author;
             $arrayPush['avatar'] = $avatar;

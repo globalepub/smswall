@@ -93,7 +93,7 @@ require_once('../smswall.inc.php');
 <li class="<%= parseInt(visible) ? 'msgOK' : 'msgNO' %>" id="t<%= id %>" style="display: none;">
 	<div class="modo_menu">
 
-		<% if(typeof(links) != 'undefined' && links.length){
+		<% if(!_.isNull(links) && typeof(links) != 'undefined' && links.length){
 			links = eval(links);
 			if(typeof(links) != "undefined") {
 				_.each(links, function(link){ %>
@@ -104,7 +104,7 @@ require_once('../smswall.inc.php');
 			}
 		}
 
-		if(typeof(medias) != 'undefined' && medias.length) {
+		if(!_.isNull(medias) && typeof(medias) != 'undefined' && medias.length) {
 	    	medias = eval(medias);
 	    	if(typeof(medias) != "undefined") {
 		    	_.each(medias, function(media){ %>

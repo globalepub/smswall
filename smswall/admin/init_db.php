@@ -23,7 +23,7 @@ try {
             FLUSH PRIVILEGES;")
     or die(print_r($con->errorInfo(), true));
 
-    echo "La base de donnée a été créée";
+    echo "BDD: ok";
 
 } catch (PDOException $e) {
     die("DB ERROR: ". $e->getMessage());

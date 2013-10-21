@@ -1,6 +1,7 @@
 <?php
 require_once('smswall.inc.php');
 include('func.php');
+include('libs/ForceUTF8/Encoding.php');
 
 date_default_timezone_set('Europe/Paris');
 
@@ -23,7 +24,15 @@ foreach($rowarray as $row){
 		if(($key == "avatar" && !$value) && $row['provider'] != 'TWITTER'){
 			$value = 'default_'.strtolower($row['provider']).'.png';
 		}
-		$msg[$key] = utf8_encode($value);
+		// $msg[$key] = utf8_encode($value);
+		// $msg[$key] = utf8_decode($value);
+
+		if($key == "message" || $key == "message_html"){
+			// $value = iconv("cp1252", "UTF-8//TRANSLIT", $value);
+			$value = \ForceUTF8\Encoding::toUTF8($value);
+		}
+
+		$msg[$key] = $value;
 	}
 	$response[] = $msg;
 }

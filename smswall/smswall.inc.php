@@ -26,7 +26,7 @@ if ($_SERVER['SCRIPT_FILENAME'] === __FILE__) {
  * Connexion base de donnée
  */
 try {
-	$db = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+    $db = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
 }
 catch(PDOException $e){
 	echo $e->getMessage();

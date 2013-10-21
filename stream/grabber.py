@@ -133,10 +133,12 @@ class SmsWallListener(StreamListener):
 
                 links = get_links(data)
                 medias = get_medias(data)
-                message_html = make_rich_links(data['text'], links, medias)
+
+                message = data['text']
+                message_html = make_rich_links(message, links, medias)
 
                 # Enregistrement du Tweet
-                new_tweet = Tweet('TWITTER', data['id_str'], data['user']['screen_name'], data['text'], message_html,
+                new_tweet = Tweet('TWITTER', data['id_str'], data['user']['screen_name'], message, message_html,
                             data['user']['profile_image_url'], links, medias, ca_origin,
                             get_config_param('modo_type') )
 
