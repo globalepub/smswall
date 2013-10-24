@@ -20,24 +20,27 @@ Installation du SmsWall :
 
 __Pré-requis :__
 
+- PHP >= 5.3 ([version compatible avec PHP 5.2](https://github.com/assobug/smswall/tree/785e109f3415aaa6f9214f030c73ebb58d4452d2) problème d'encodage connus...)
+
 - Ouvrir un compte chez [Pusher](http://pusher.com) et mettre de côté les informations de connexion à leur API. A la création de votre application Pusher pensez à cocher la case "Enable client events"
 
 - Ouvrir un compte chez [Embedly](http://embed.ly) et mettre de côté les informations de connexion à leur API
 
 - Posez les sources du wall (le dossier /smswall) sur votre serveur (local ou distant)
 
-__Installation :__
 
+__Installation :__
 
 - Copiez le fichier de configuration d'exemple conf.inc.sample.php et renommez le en conf.inc.php.
 - Modifiez le fichier conf.inc.php avec les paramètres de connexion à votre base de données ainsi que les informations qui vous ont été fournis par Embedly et Pusher
+
 
 __Création de la base de donnée__
 
 - Créez un base de donnée que vous nommerez 'smswall' (si vous disposez des droits root sur mysql vous pouvez vous rendre sur la page http://www.mondomaine.com/smswall/admin/init_db.php)
 - Pour créer les tables rendez vous sur la page http://www.mondomaine.com/smswall/admin/init_tables.php
 
-Votre SmsWall est opérationnel, si vous utilisez le grabber de tweet vous pouvez le lancer (soit PHP, soit Python), les messages devraient commencer à tomber sur le mur.
+Votre SmsWall est opérationnel !
 
 
 Lancement de l'application :
