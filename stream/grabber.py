@@ -21,6 +21,12 @@ tzone = pytz.timezone('Europe/Paris')
 app = Flask(__name__)
 app.debug = True
 
+app.debug_log_format = (
+        '%(levelname)s in %(module)s [%(pathname)s:%(lineno)d]:\n' +
+        '%(message)s\n' +
+        '-' * 80
+    )
+
 engine = create_engine(URL(**DATABASE))
 Session = sessionmaker(bind=engine)
 session = Session()
@@ -44,10 +50,10 @@ def start_grabber():
     app.stream = Stream(auth, s, timeout=43200.0) # timeout: 12 heures
 
     if not get_config_param('userstream'):
-        print "lancement du grabber. Hashtag en cours : %s" % previous_hash
+        app.logger.info("lancement du grabber. Hashtag en cours : %s", previous_hash)
         app.stream.filter(track=[ previous_hash ], stall_warnings=True)
     else:
-        print "stream du compte Twitter associé à l'application WallFactory"
+        app.logger.info("stream du compte Twitter associé à l'application WallFactory")
         app.stream.userstream()
 
 
@@ -75,7 +81,6 @@ def get_links(data):
         links = []
         for url in data['entities']['urls']:
             links.append({"type": "link", "url": url['url'], "expanded_url": url['expanded_url']})
-            print "link : %s" % url['expanded_url']
 
     return links
 
@@ -93,7 +98,6 @@ def get_medias(data):
             th = 'thumb' if 'thumb' in media['sizes'] else th
 
             medias.append({"type": media['type'], "url": media['url'], "media_url": media['media_url'], "thumb_size": th })
-            print "media : %s" % media['media_url']
 
     return medias
 
@@ -110,9 +114,7 @@ class SmsWallListener(StreamListener):
         if current_hash != previous_hash:
             previous_hash = current_hash
             app.stream.disconnect()
-            # stream.disconnect()
             del(app.stream)
-            # del(stream)
             start_grabber()
 
         data = json.loads(data)
@@ -129,10 +131,11 @@ class SmsWallListener(StreamListener):
                 ca_utc = utc.localize(ca_origin)
                 created_at = ca_utc.astimezone(tzone).strftime('%Y-%m-%d %H:%M:%S')
 
-                print "%s: %s" % (data['user']['screen_name'], data['text'])
-
                 links = get_links(data)
                 medias = get_medias(data)
+
+                # log du message dans le shell
+                app.logger.info("%s: %s", data['user']['screen_name'], data['text'])
 
                 message = data['text']
                 message_html = make_rich_links(message, links, medias)
@@ -162,20 +165,18 @@ class SmsWallListener(StreamListener):
 
                 pushy['Channel_%s' % get_config_param('channel_id')].trigger('new_twut', new_pusher_tweet)
 
-                print "-----------------------------------------------"
-
         else:
             # @todo Pas de traitement pour les stall_warnings, on ne fait que les afficher
-            print data
+            app.logger.warning("ceci n'est pas un message: %s", data)
 
         return True
 
     def on_error(self, status):
-        print status
+        app.logger.error("Streamer error: %s", status)
         return True # Don't kill the stream
 
     def on_timeout(self):
-        print 'Timeout...'
+        app.logger.warning('Timeout...')
         return True # Don't kill the stream
 
 
