@@ -125,7 +125,7 @@ require_once('../smswall.inc.php');
     <div class="twut-text">
         <span class="author"><a href="http://twitter.com/<%= author %>" target="_blank"><%= author %></a> : </span>
         <span class="textMsg"><%= message_html ? (message_html) : message %> - </span>
-        <span class="time"><%= ctime %></span>
+        <span class="time"><%= moment(ctime).format('DD/MM/YY HH:mm:ss') %></span>
     </div>
     <div style="clear: both;"></div>
 </li>
@@ -179,6 +179,8 @@ require_once('../smswall.inc.php');
 <script src="../static/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://cdn.embed.ly/jquery.embedly-3.1.0.min.js" type="text/javascript"></script>
 <script src="../static/js/jquery.scrollTo-min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../static/js/moment.min.js" ></script>
+<script type="text/javascript" src="../static/js/moment.fr.js" ></script>
 <script src="static/admin.js" type="text/javascript"></script>
 
 </body>
