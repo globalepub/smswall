@@ -32,7 +32,7 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 	<?php
 	// Optionnel
 	// lecture de scripts.js dans le dossier du thème si il existe
-	// Vous pouvez ajouter vos propres scripts pour personnaliser votre thème
+	// Vous pouvez y ajouter vos propres scripts pour personnaliser votre thème
 	if(file_exists("themes/".$theme."/scripts.js")){
 		?>
 		<script src="themes/<?php echo $theme; ?>/scripts.js" type="text/javascript"></script>
@@ -48,54 +48,13 @@ $theme = (!empty($config)) ? $config['theme'] : 'default';
 </head>
 <body>
 
-<ul id="infos">
-	<li><div class="highlight">Envoyer un message sur le mur :</div></li>
-	<li><div class="line">Par Twitter avec le tag <span id="hashtag"><?php echo $config['hashtag']; ?></span></div></li>
-	<li><div class="line">ou par SMS, au <span id="phone"><?php echo $config['phone_number']; ?></span></div></li>
-</ul>
+<?php
+// personnalisation de l'apparence du wall public
+include('themes/'.$theme.'/body.php');
 
-<div id="wrapper">
-	<ul id="containerMsg"></ul>
-</div>
-
-<div id="overlayMsg" class="overlay" style="display: none;">
-	<div id="bulleMsg"></div>
-</div>
-
-<div id="overlayMedia" class="overlay" style="display: none;">
-	<div id="bulleMedia"></div>
-</div>
-
-<div id="footer">Powered by SmsWall</div>
-
-<!-- Templates -->
-
-<script id="tpl_tweet" type="text/template">
-<li id="t<%= id %>" class="<%= visible ? 'msgOK' : 'msgNO' %>" style="display: none;">
-	<% if(config.avatar == 1){ %>
-		<img src="<%= avatar %>" class="avatar" />
-	<% } %>
-	<div class="twut-text">
-		<span class="author"><%= author %> :</span>
-		<span class="textMsg"><%= message %></span> -
-		<span class="time" data-time="<%= ctime %>"><%= moment(ctime).fromNow() %></span>
-		<div style="clear: both;"></div>
-	</div>
-</li>
-</script>
-
-<script id="tpl_bulle" type="text/template">
-<div id="splash" style="display: block;" >
-	<% if(config.avatar == 1){ %>
-		<img src="<%= avatar %>" class="avatarbig" />
-	<% } %>
-    <span class="author"><%= author %></span>
-	<span class="textMsg"><%= message %></span>
-	<span class="time" data-time="<%= ctime %>"><%= moment(ctime).fromNow() %></span>
-	<div style="clear: both;"></div>
-</div>
-</script>
-
+// templates des bulles
+include('themes/'.$theme.'/templates.php');
+?>
 
 </body>
 </html>
