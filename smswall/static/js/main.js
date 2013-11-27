@@ -186,10 +186,10 @@ create_splash = function(data){
                 }
             }
 
-            posX = ( ($(window).width() - $(this).width()) / 2 )  - pad - mar;
+            posX = ( ($(window).width() - $(this).outerWidth()) / 2 )  - pad - mar;
             posY = ( ($(window).height() - $(this).height()) / 2) - pad - mar;
 
-            $("#bulleMedia").css({'width': $(this).width(), 'top': posY, 'left': posX });
+            $("#bulleMedia").css({'width': $(this).outerWidth(true), 'top': posY, 'left': posX });
 
             $(this).fadeIn('slow',function(){
                 // Fin de l'anim
