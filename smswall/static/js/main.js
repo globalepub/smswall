@@ -100,9 +100,9 @@ privatechannel.bind('client-open-bubble', function(data){
     $("#bulleMsg").html(tpl_message);
 
     // centrage de la bulle
-    decalX = ( $(window).width() - $("#bulleMsg").width() ) / 2;
-    decalY = ($(window).height() / 2 ) - ( $("#bulleMsg").height() / 2);
-    $("#bulleMsg").css({'left': decalX, 'top': decalY});
+    posX = ( $(document).width() - $("#bulleMsg").outerWidth() ) / 2;
+    posY = ($(document).height() / 2 ) - ( $("#bulleMsg").outerHeight() / 2);
+    $("#bulleMsg").css({'left': posX, 'top': posY});
 
     $("#overlayMsg").css({'visibility':'visible','display':'none'});
 
@@ -118,22 +118,6 @@ privatechannel.bind('client-open-bubble', function(data){
             close_bubble();
         }, duree );
     }
-
-
-    /*
-    if(data.dureeBulle > 0){
-        var duree = data.dureeBulle * 1000;
-        $("#overlayMsg").fadeIn(500,function(){
-            $("#splash").slideDown(400);
-        }).delay( duree ).fadeOut(500,function(){
-            $("#bulleMsg").empty().removeAttr('style');
-        });
-    }else{
-        $("#overlayMsg").fadeIn(500,function(){
-            $("#splash").slideDown(400);
-        });
-    }
-    */
 });
 
 privatechannel.bind('client-close-bubble', function(data){
@@ -164,17 +148,13 @@ create_splash = function(data){
         var img = new Image();
 
         $(img).load(function () {
-            $("#overlayMedia").fadeIn("fast");
+            $("#overlayMedia").fadeIn(500);
             $("#bulleMedia").show();
 
-            $(this).css('display','none');
             $(this).attr('id','viewer');
             $("#bulleMedia").html(this);
 
-            var spacer = 100;
-
-            var pad = $("#bulleMedia").css('padding').replace(/[^-\d\.]/g, '');
-            var mar = $("#viewer").css('margin').replace(/[^-\d\.]/g, '');
+            var spacer = 50;
 
             if($(this).width() > $(document).width() || $(this).height() > $(document).height() - spacer){
                 if($(this).width() > $(this).height() && $(this).height() < $(document).height() - spacer) {
@@ -186,31 +166,32 @@ create_splash = function(data){
                 }
             }
 
-            posX = ( ($(window).width() - $(this).outerWidth()) / 2 )  - pad - mar;
-            posY = ( ($(window).height() - $(this).height()) / 2) - pad - mar;
+            posX = ( $(document).width() - $("#bulleMedia").outerWidth() ) / 2;
+            posY = ( $(document).height() - $("#bulleMedia").outerHeight() ) / 2;
 
-            $("#bulleMedia").css({'width': $(this).outerWidth(true), 'top': posY, 'left': posX });
+            $("#bulleMedia").css({'top': posY, 'left': posX });
 
-            $(this).fadeIn('slow',function(){
+            // $(this).fadeIn('slow',function(){
                 // Fin de l'anim
                 $("#bulleMedia").fadeIn('slow');
-            });
+            // });
 
         }).attr('src', data.html);
 
     }else{
         $("#bulleMedia").html('<div id="viewer">' + data.html + '</div>');
-        var ifrw = $("iframe", "#bulleMedia").attr('width');
-        var ifrh = $("iframe", "#bulleMedia").attr('height');
+        var outerx = $("#bulleMedia").outerWidth() + $("#viewer").outerWidth();
+        var outery = $("#bulleMedia").outerHeight() + $("#viewer").outerHeight();
 
-        posX = ( $(window).width() - ifrw ) / 2;
-        posY = ( $(window).height() - ifrh ) / 2;
+        posX = ( $(document).width() - $("iframe", "#bulleMedia").outerWidth() - outerx ) / 2;
+        posY = ( $(document).height() - $("iframe", "#bulleMedia").outerHeight() - outery ) / 2;
 
-        $("#bulleMedia").css({'width': 'auto', 'top': posY, 'left': posX });
+        $("#bulleMedia").css({'top': posY, 'left': posX });
 
         $("#overlayMedia").fadeIn(500,function(){
             $("#viewer").show();
         });
+
     }
 }
 
