@@ -161,9 +161,10 @@ create_splash = function(data){
                     $(this).css('width',$(document).width() - (spacer * 2) );
                     $(this).css('height','auto');
                 } else {
-                    $(this).css('height',$(document).height() - (spacer * 2) );
+                    $(this).css('height',$(window).height() - (spacer * 2) );
                     $(this).css('width','auto');
                 }
+
             }
 
             posX = ( $(document).width() - $("#bulleMedia").outerWidth() ) / 2;
