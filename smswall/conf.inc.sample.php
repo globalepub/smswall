@@ -4,6 +4,7 @@
  */
 
 $host="localhost";
+$port="3306";
 
 $root="root";
 $root_password="";
