@@ -100,8 +100,8 @@ privatechannel.bind('client-open-bubble', function(data){
     $("#bulleMsg").html(tpl_message);
 
     // centrage de la bulle
-    posX = ( $(document).width() - $("#bulleMsg").outerWidth() ) / 2;
-    posY = ($(document).height() / 2 ) - ( $("#bulleMsg").outerHeight() / 2);
+    posX = ( $(window).width() - $("#bulleMsg").outerWidth() ) / 2;
+    posY = ($(window).height() / 2 ) - ( $("#bulleMsg").outerHeight() / 2);
     $("#bulleMsg").css({'left': posX, 'top': posY});
 
     $("#overlayMsg").css({'visibility':'visible','display':'none'});
@@ -156,9 +156,9 @@ create_splash = function(data){
 
             var spacer = 50;
 
-            if($(this).width() > $(document).width() || $(this).height() > $(document).height() - spacer){
-                if($(this).width() > $(this).height() && $(this).height() < $(document).height() - spacer) {
-                    $(this).css('width',$(document).width() - (spacer * 2) );
+            if($(this).width() > $(window).width() || $(this).height() > $(window).height() - spacer){
+                if($(this).width() > $(this).height() && $(this).height() < $(window).height() - spacer) {
+                    $(this).css('width',$(window).width() - (spacer * 2) );
                     $(this).css('height','auto');
                 } else {
                     $(this).css('height',$(window).height() - (spacer * 2) );
@@ -167,8 +167,8 @@ create_splash = function(data){
 
             }
 
-            posX = ( $(document).width() - $("#bulleMedia").outerWidth() ) / 2;
-            posY = ( $(document).height() - $("#bulleMedia").outerHeight() ) / 2;
+            posX = ( $(window).width() - $("#bulleMedia").outerWidth() ) / 2;
+            posY = ( $(window).height() - $("#bulleMedia").outerHeight() ) / 2;
 
             $("#bulleMedia").css({'top': posY, 'left': posX });
 
@@ -184,8 +184,8 @@ create_splash = function(data){
         var outerx = $("#bulleMedia").outerWidth() + $("#viewer").outerWidth();
         var outery = $("#bulleMedia").outerHeight() + $("#viewer").outerHeight();
 
-        posX = ( $(document).width() - $("iframe", "#bulleMedia").outerWidth() - outerx ) / 2;
-        posY = ( $(document).height() - $("iframe", "#bulleMedia").outerHeight() - outery ) / 2;
+        posX = ( $(window).width() - $("iframe", "#bulleMedia").outerWidth() - outerx ) / 2;
+        posY = ( $(window).height() - $("iframe", "#bulleMedia").outerHeight() - outery ) / 2;
 
         $("#bulleMedia").css({'top': posY, 'left': posX });
 
