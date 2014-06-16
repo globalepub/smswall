@@ -94,10 +94,6 @@ Si vous rencontrez cette erreur c'est que MySQL n'est pas correctement installé
 
     $ sudo apt-get install python-dev libmysqlclient-dev
 
-Ensuite, via PIP :
-
-    (env) $ pip install MySQL-python
-
 Plus d'infos :
 
 - http://mysql-python.blogspot.fr/2012/11/is-mysqldb-hard-to-install.html

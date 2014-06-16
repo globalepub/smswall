@@ -182,3 +182,4 @@ class SmsWallListener(StreamListener):
 
 if __name__ == "__main__":
     start_grabber()
+
