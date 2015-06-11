@@ -6,7 +6,7 @@ require('../conf.inc.php');
  */
 
 try {
-    $con = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $con = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8", $user, $pass);
     // PHP < 5.3.6
     $con->exec("set names utf8");
     $con->exec("CREATE TABLE IF NOT EXISTS config_wall (
@@ -53,7 +53,7 @@ try {
  */
 
 try{
-    $con = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $con = new PDO("mysql:host=$host;port=$port;dbname=$db;charset=utf8", $user, $pass;
     // PHP < 5.3.6
     $con->exec("set names utf8");
     $con->beginTransaction();
